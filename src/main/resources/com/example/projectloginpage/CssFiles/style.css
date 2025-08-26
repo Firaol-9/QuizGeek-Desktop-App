@@ -1,0 +1,240 @@
+/* Root container */
+.root, .scroll-pane {
+    -fx-background-color: #E3F2FD; /* light blue background */
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Headings */
+.label {
+    -fx-text-fill: #0D47A1; /* deep blue text */
+    -fx-font-size: 14px;
+}
+
+.heading-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: #0D47A1;
+}
+
+.subHeading-label{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976D2; /* primary blue for subheadings */
+}
+
+/* Separators */
+.separator {
+    -fx-background-color: white; /* slightly darker light blue */
+}
+
+/* TextFields */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #BBDEFB;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #0D47A1;
+}
+
+.text-field:focused {
+    -fx-border-color: #1976D2; /* primary blue focus */
+    -fx-border-width: 2px;
+}
+
+/* TextAreas */
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: #BBDEFB;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-text-fill: #0D47A1;
+}
+
+.text-area:focused {
+    -fx-border-color: #1976D2;
+    -fx-border-width: 2px;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #1976D2; /* primary blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-border-color: #1976D2;
+    -fx-border-radius: 8;
+}
+
+.button:hover {
+    -fx-background-color: #1565C0;
+}
+
+.button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+/* Login Buttons */
+.loginButtons {
+    -fx-background-color: #1976D2;
+    -fx-text-fill: white;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER;
+    -fx-cursor: hand;
+}
+
+.loginButtons:hover {
+    -fx-background-color: #1565C0;
+}
+
+/* Toggle Buttons */
+.toggle-button {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #0D47A1;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+    -fx-border-color: #BBDEFB;
+    -fx-border-radius: 8;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #BBDEFB;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #1976D2;
+    -fx-text-fill: white;
+    -fx-border-color: #1976D2;
+}
+
+/* Sidebar toggle buttons */
+.sidebar .toggle-button {
+    -fx-background-color: white;
+    -fx-text-fill: #0D47A1;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 20;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.sidebar .toggle-button:selected {
+    -fx-background-color: #1976D2;
+    -fx-text-fill: white;
+}
+
+/* ChoiceBoxes */
+.choice-box {
+    -fx-background-color: white;
+    -fx-border-color: #BBDEFB;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #0D47A1;
+}
+
+.choice-box:hover {
+    -fx-border-color: #1976D2;
+}
+
+/* Hyperlinks */
+.hyperlink {
+    -fx-text-fill: #1976D2;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #1565C0;
+}
+
+/* RadioButtons */
+.radio-button .radio {
+    -fx-background-color: #E3F2FD;
+    -fx-border-color: #BBDEFB;
+    -fx-border-radius: 50%;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #1976D2;
+}
+
+/* ScrollPane ScrollBars */
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 0.5em;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #BBDEFB;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #90CAF9;
+}
+
+/* Card container */
+.cardContainer {
+    -fx-background-color: #E3F2FD;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+}
+
+/* Cards inside TilePane */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+    -fx-background-color: #BBDEFB;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0, 0, 3);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.card:pressed {
+    -fx-background-color: #90CAF9;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Subject images and labels */
+.subject-image {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+}
+
+.subject-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-text-fill: #0D47A1;
+}
+
+/* Outer VBox */
+.outerVbox {
+    -fx-background-color: #E3F2FD;
+    -fx-background-radius: 15;
+}
+.VBox{
+    -fx-border-color: skyBlue;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+}

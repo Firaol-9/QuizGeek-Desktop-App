@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" stylesheets="@../../CssFiles/style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectloginpage.controllers.MainLayoutControllerForStudents">
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox fx:id="leftSideBar" alignment="TOP_LEFT" spacing="60.0" styleClass="sidebar" stylesheets="@../../CssFiles/style.css">
+            <children>
+                <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="QUIZAPP">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                   <VBox.margin>
+                      <Insets left="10.0" right="10.0" top="10.0" />
+                   </VBox.margin>
+                </Label>
+            <VBox fx:id="sidbar" spacing="4.0">
+               <children>
+                  <ToggleButton fx:id = "dashboardButton" mnemonicParsing="false" prefHeight="28.0" prefWidth="215.0" text="Dashboard">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id = "homeButton" mnemonicParsing="false" onAction="#showHome" prefHeight="28.0" prefWidth="215.0" selected="true" text="Home">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton fx:id = "myResultsButton" mnemonicParsing="false" prefHeight="28.0" prefWidth="215.0" text="My Results">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </ToggleButton>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </VBox>
+            </children>
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </VBox>
+    </left>
+   <center>
+      <StackPane fx:id="centerContainer" alignment="TOP_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin></StackPane>
+   </center>
+
+</BorderPane>
