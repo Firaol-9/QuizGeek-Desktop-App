@@ -2,6 +2,7 @@ package com.example.projectloginpage.controllers;
 
 import com.example.projectloginpage.exceptions.EmailNotFoundException;
 import com.example.projectloginpage.exceptions.IncorrectPasswordException;
+import com.example.projectloginpage.models.UserRole;
 import com.example.projectloginpage.services.UserService;
 
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -64,7 +66,7 @@ public class LoginPageController implements Initializable {
             userService.login(email, password);
 
             String fxmlPath;
-            if (UserService.getCurrentUser().getRole().equalsIgnoreCase("student"))
+            if (UserService.getCurrentUser().getRole() == UserRole.STUDENT)
                 fxmlPath = "/com/example/projectloginpage/FxmlFiles/ForStudents/MainLayoutForStudents.fxml";
             else
                 fxmlPath = "/com/example/projectloginpage/FxmlFiles/ForTeachers/MainLayoutForTeachers.fxml";

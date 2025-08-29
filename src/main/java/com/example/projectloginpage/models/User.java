@@ -4,9 +4,9 @@ public class User {
     private String fullName;
     private String email;
     private String password;
-    private String role;
+    private UserRole role;
 
-    public User(String fullName, String email, String password, String role){
+    public User(String fullName, String email, String password, UserRole role){
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -15,6 +15,6 @@ public class User {
 
     public String getFullName(){ return fullName;}
     public String getEmail(){ return email;}
-    public String getRole(){ return role;}
+    public UserRole getRole(){ return role;}
     public String getPassword() { return password;}
 }

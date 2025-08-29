@@ -2,6 +2,7 @@ package com.example.projectloginpage.controllers;
 
 import com.example.projectloginpage.exceptions.EmailAlreadyExistsException;
 import com.example.projectloginpage.exceptions.PasswordMismatchException;
+import com.example.projectloginpage.models.UserRole;
 import com.example.projectloginpage.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class SignUpPageController implements Initializable{
 
-    @FXML private ChoiceBox<String> choiceBox;
+    @FXML private ChoiceBox<UserRole> choiceBox;
 
     @FXML private TextField fullNameTextField, emailTextField;
     @FXML private PasswordField passwordTextField, confirmPasswordTextField;
@@ -37,10 +38,9 @@ public class SignUpPageController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        choiceBox.getItems().addAll("Student", "Teacher");
-        choiceBox.setValue("Student");
+        choiceBox.getItems().addAll(UserRole.values());
+        choiceBox.setValue(UserRole.STUDENT);
         choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            System.out.println("Selected: " + newValue);
         });
     }
 
@@ -67,13 +67,13 @@ public class SignUpPageController implements Initializable{
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
-        String role = choiceBox.getValue();
+        UserRole role = choiceBox.getValue();
 
         try {
             userService.signUp(fullName, email, password, confirmPassword, role);
 
             String filePath;
-            if (role.equalsIgnoreCase("student"))
+            if (role == UserRole.STUDENT)
                 filePath = "/com/example/projectloginpage/FxmlFiles/ForStudents/MainLayoutForStudents.fxml";
             else
                 filePath = "/com/example/projectloginpage/FxmlFiles/ForTeachers/MainLayoutForTeachers.fxml";

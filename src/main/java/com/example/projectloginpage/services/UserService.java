@@ -1,9 +1,11 @@
 package com.example.projectloginpage.services;
+
 import com.example.projectloginpage.exceptions.EmailAlreadyExistsException;
 import com.example.projectloginpage.exceptions.EmailNotFoundException;
 import com.example.projectloginpage.exceptions.IncorrectPasswordException;
 import com.example.projectloginpage.exceptions.PasswordMismatchException;
 import com.example.projectloginpage.models.User;
+import com.example.projectloginpage.models.UserRole;
 
 import java.util.*;
 
@@ -26,15 +28,15 @@ public class UserService {
 
     //temporary user
     public void addUser(){
-        users.put("student@gmail.com", new User("student", "student@gmail.com", "1234", "student"));
-        users.put("teacher@gmail.com", new User("teacher", "teacher@gmail.com", "1234", "teacher"));
+        users.put("student@gmail.com", new User("student", "student@gmail.com", "1234", UserRole.STUDENT));
+        users.put("teacher@gmail.com", new User("teacher", "teacher@gmail.com", "1234", UserRole.TEACHER));
     }
 
-    public boolean signUp(String userName, String email, String password, String confirmPassword, String career) throws EmailAlreadyExistsException, PasswordMismatchException {
+    public boolean signUp(String userName, String email, String password, String confirmPassword, UserRole role) throws EmailAlreadyExistsException, PasswordMismatchException {
         if (users.containsKey(email)) throw new EmailAlreadyExistsException("Email already exists. Try to login.");
         if (!password.equals(confirmPassword)) throw new PasswordMismatchException("Password Mismatch!");
 
-        User user = new User(userName, email, password, career);
+        User user = new User(userName, email, password, role);
         users.put(email, user );
         this.setCurrentUser(user);
         return true;
