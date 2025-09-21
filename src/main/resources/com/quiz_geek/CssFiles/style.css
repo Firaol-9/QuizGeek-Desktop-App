@@ -505,3 +505,11 @@
 .low-score .bar {
     -fx-background-color: #dc2626; /* red */
 }
+
+.check-box .box {
+    -fx-background-radius: 5;
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+}

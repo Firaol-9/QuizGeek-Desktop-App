@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -8,76 +9,161 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane minWidth="300.0" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="@../../CssFiles/style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quiz_geek.controllers.common.SignUpPageController">
-    <VBox fx:id="outerVbox" alignment="CENTER" maxHeight="400.0" maxWidth="300.0" spacing="10" styleClass="outerVbox" stylesheets="@../../CssFiles/style.css">
-      <VBox alignment="BOTTOM_LEFT" layoutX="30.0" layoutY="30.0" spacing="5.0">
+
+<HBox stylesheets="@../../CssFiles/style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quiz_geek.controllers.common.SignUpPageController">
+   <children>
+       <VBox fx:id="outerVbox" alignment="CENTER" prefWidth="600.0" spacing="16.0" stylesheets="@../../CssFiles/style.css">
+         <Label stylesheets="@../../CssFiles/style.css" text="Signup">
+            <styleClass>
+               <String fx:value="label-white" />
+               <String fx:value="label-bold" />
+               <String fx:value="label-veryLarge" />
+            </styleClass>
+         </Label>
+         <VBox alignment="BOTTOM_LEFT" layoutX="30.0" layoutY="30.0" spacing="5.0">
+            <children>
+               <Label stylesheets="@../../CssFiles/style.css" text="Full Name">
+                  <styleClass>
+                     <String fx:value="label-white" />
+                     <String fx:value="label-small" />
+                  </styleClass>
+               </Label>
+               <TextField fx:id="fullNameTextField" promptText="Enter your full name" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
+            </children>
+         </VBox>
+         <VBox alignment="BOTTOM_LEFT" spacing="5.0">
+            <children>
+               <Label stylesheets="@../../CssFiles/style.css" text="E-mail">
+                  <styleClass>
+                     <String fx:value="label-small" />
+                     <String fx:value="label-white" />
+                  </styleClass>
+               </Label>
+         
+                    <!-- Email and Password fields -->
+                 <TextField fx:id="emailTextField" promptText="Enter your email address" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
+            </children>
+         </VBox>
+         <VBox fx:id="emailErrorVbox" />
+         <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="117.0" spacing="5.0">
+            <children>
+               <Label stylesheets="@../../CssFiles/style.css" text="Password">
+                  <styleClass>
+                     <String fx:value="label-small" />
+                     <String fx:value="label-white" />
+                  </styleClass>
+               </Label>
+                 <PasswordField fx:id="passwordTextField" promptText="Enter your password" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
+            </children>
+         </VBox>
+         <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="124.0" spacing="5.0">
+            <children>
+               <Label stylesheets="@../../CssFiles/style.css" text="Confirm password">
+                  <styleClass>
+                     <String fx:value="label-small" />
+                     <String fx:value="label-white" />
+                  </styleClass>
+               </Label>
+               <PasswordField fx:id="confirmPasswordTextField" promptText="Enter your password" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
+            </children>
+         </VBox>
+         <VBox fx:id="passwordMismatchErrorVbox" />
+         <HBox>
+            <children>
+               <VBox spacing="5.0">
+                  <children>
+                     <Label stylesheets="@../../CssFiles/style.css" text="Sign as:">
+                        <styleClass>
+                           <String fx:value="label-small" />
+                           <String fx:value="label-white" />
+                        </styleClass>
+                     </Label>
+                     <ChoiceBox fx:id="choiceBox" prefHeight="35.0" prefWidth="150.0" />
+                  </children>
+               </VBox>
+               <HBox alignment="BOTTOM_RIGHT" HBox.hgrow="ALWAYS">
+                  <children>
+                     <CheckBox mnemonicParsing="false" stylesheets="@../../CssFiles/style.css" text="Remember me">
+                        <styleClass>
+                           <String fx:value="label-white" />
+                           <String fx:value="label-medium" />
+                        </styleClass>
+                     </CheckBox>
+                  </children>
+               </HBox>
+            </children>
+         </HBox>
+         <VBox alignment="CENTER" prefHeight="34.0" prefWidth="174.0" spacing="20.0">
+            <children>
+         
+                    <Button fx:id="signUpButton" maxWidth="1.7976931348623157E308" onAction="#linkToMainPage" stylesheets="@../../CssFiles/style.css" text="Sign-up" />
+                 <Button fx:id="googButton" maxWidth="1.7976931348623157E308" styleClass="button-white" stylesheets="@../../CssFiles/style.css" text="Continue with Google" />
+            </children>
+            <VBox.margin>
+               <Insets top="20.0" />
+            </VBox.margin>
+         </VBox>
+         <HBox alignment="CENTER">
+            <children>
+               <Label stylesheets="@../../CssFiles/style.css" text="Already have an account?">
+                  <styleClass>
+                     <String fx:value="label-small" />
+                     <String fx:value="label-white" />
+                  </styleClass>
+               </Label>
+               <Hyperlink fx:id="loginLink" onAction="#linkToLoginPage" stylesheets="@../../CssFiles/style.css" text="Login">
+                  <styleClass>
+                     <String fx:value="label-white" />
+                     <String fx:value="label-small" />
+                  </styleClass>
+               </Hyperlink>
+            </children>
+         </HBox>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <styleClass>
+            <String fx:value="section-card" />
+            <String fx:value="section-card-secondaryColor" />
+            <String fx:value="section-card-largePadding" />
+            <String fx:value="backgroundRadius-extraLarge" />
+         </styleClass>
+       </VBox>
+      <VBox spacing="32.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label text="Full Name" />
-            <TextField fx:id="fullNameTextField" promptText="Enter your full name" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
-         </children>
-      </VBox>
-      <VBox alignment="BOTTOM_LEFT" spacing="5.0">
-         <children>
-            <Label text="E-mail" />
-      
-              <!-- Email and Password fields -->
-              <TextField fx:id="emailTextField" promptText="Enter your email address" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
-         </children>
-      </VBox>
-      <VBox fx:id="emailErrorVbox" />
-      <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="117.0" spacing="5.0">
-         <children>
-            <Label text="Password" />
-              <PasswordField fx:id="passwordTextField" promptText="Enter your password" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
-         </children>
-      </VBox>
-      <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="124.0" spacing="5.0">
-         <children>
-            <Label text="Confirm password" />
-            <PasswordField fx:id="confirmPasswordTextField" promptText="Enter your password" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
-         </children>
-      </VBox>
-      <VBox fx:id="passwordMismatchErrorVbox" prefHeight="200.0" prefWidth="100.0" />
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-         <children>
-            <Label text="Sign as:" />
-            <ChoiceBox fx:id="choiceBox" prefWidth="150.0" />
-         </children>
-      </VBox>
-      <HBox fx:id="RememberMe">
-         <children>
-            <HBox prefWidth="150.0">
+            <HBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" stylesheets="@../../CssFiles/style.css">
                <children>
-                  <CheckBox mnemonicParsing="false" text="Remember me" />
+                  <Label stylesheets="@../../CssFiles/style.css" text="Quiz-Geek">
+                     <styleClass>
+                        <String fx:value="label-veryLarge" />
+                        <String fx:value="label-bold" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
+               <children>
+                  <ImageView fitHeight="585.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/Illustration.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" stylesheets="@../../CssFiles/style.css">
+               <children>
+                  <Label styleClass="label-large" stylesheets="@../../CssFiles/style.css" text="Develop your learning skill by doing different assessments" />
                </children>
             </HBox>
          </children>
-      </HBox>
-      <VBox alignment="CENTER" prefHeight="34.0" prefWidth="174.0" spacing="20.0">
-         <children>
-      
-              <Button fx:id="signUpButton" maxWidth="1.7976931348623157E308" onAction="#linkToMainPage" styleClass="loginButtons" stylesheets="@../../CssFiles/style.css" text="Sign-up" />
-              <Button fx:id="googButton" maxWidth="1.7976931348623157E308" styleClass="loginButtons" stylesheets="@../../CssFiles/style.css" text="Continue with Google" />
-         </children>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
       </VBox>
-      <HBox alignment="CENTER">
-         <children>
-            <Label text="Already have an account?" />
-            <Hyperlink fx:id="loginLink" onAction="#linkToLoginPage" text="Login" />
-         </children>
-      </HBox>
-      <StackPane.margin>
-         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-      </StackPane.margin>
-      <padding>
-         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-      </padding>
-    </VBox>
-</StackPane>
+   </children>
+   <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+   </padding>
+</HBox>
