@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="60.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quiz_geek.controllers.teacher.MyQuestionsController">
+   <padding>
+      <Insets bottom="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10">
+         <children>
+            <ToggleButton fx:id="allQuestionsTab" minHeight="-Infinity" mnemonicParsing="false" onAction="#showAllAssessments" prefHeight="60.0" prefWidth="135.0" selected="true" stylesheets="@../../CssFiles/style.css" text="All">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="practiceQuestionsTab" minHeight="-Infinity" mnemonicParsing="false" onAction="#showPracticeQuestions" prefHeight="60.0" prefWidth="135.0" selected="true" stylesheets="@../../CssFiles/style.css" text="Practice Question">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="worksheetsTab" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#showWorkSheets" prefHeight="60.0" prefWidth="135.0" stylesheets="@../../CssFiles/style.css" text="Worksheets">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </ToggleButton>
+            <ToggleButton fx:id="examsTab" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#showExams" prefHeight="60.0" prefWidth="135.0" stylesheets="@../../CssFiles/style.css" text="Exams">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </ToggleButton>
+         </children>
+      </HBox>
+      <Label styleClass="heading-label" text="Your Questions:">
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin>
+         <content>
+            <TilePane fx:id="tilePane" hgap="15.0" vgap="15.0" prefTileHeight="0.0" prefTileWidth="0.0" styleClass="cardContainer" stylesheets="@../../CssFiles/style.css">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </TilePane>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

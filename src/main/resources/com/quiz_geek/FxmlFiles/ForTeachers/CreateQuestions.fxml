@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" maxWidth="910.0" stylesheets="@../../CssFiles/style.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quiz_geek.controllers.teacher.CreateQuestionsController">
+   <content>
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" spacing="32.0" styleClass="createNewQuizContainer" stylesheets="@../../CssFiles/style.css">
+         <children>
+            <VBox spacing="5.0">
+               <children>
+                  <Label stylesheets="@../../CssFiles/style.css" text="Create New Assessment">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="label-extraExtraLarge" />
+                        <String fx:value="label-bold" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </VBox>
+            <HBox maxHeight="50.0" maxWidth="1.7976931348623157E308" spacing="30.0" stylesheets="@../../CssFiles/style.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox spacing="5.0" stylesheets="@../../CssFiles/style.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="label-white" stylesheets="@../../CssFiles/style.css" text="Quiz Title" />
+                        <TextField fx:id="quizTitleTextField" maxWidth="1.7976931348623157E308" prefHeight="65.0" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="label-white" stylesheets="@../../CssFiles/style.css" text="Subject" />
+                        <TextField fx:id="subjectTextField" maxWidth="1.7976931348623157E308" prefHeight="65.0" styleClass="textField" stylesheets="@../../CssFiles/style.css" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="section-card" />
+                  <String fx:value="section-card-secondaryColor" />
+               </styleClass>
+            </HBox>
+            <Label prefHeight="26.0" stylesheets="@../../CssFiles/style.css" text="Questions">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="label-extraLarge" />
+                  <String fx:value="label-bold" />
+               </styleClass>
+            </Label>
+            <VBox fx:id="questionsContainer" spacing="32.0" />
+            <HBox>
+               <children>
+                  <Button fx:id="addQuestionButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add question" />
+               </children>
+            </HBox>
+            <VBox stylesheets="@../../CssFiles/style.css" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox spacing="20.0" stylesheets="@../../CssFiles/style.css">
+                     <children>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="label-white" stylesheets="@../../CssFiles/style.css" text="Difficulty" />
+                              <ChoiceBox fx:id="difficultyChoiceBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="30.0" layoutY="30.0" spacing="5" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="label-white" stylesheets="@../../CssFiles/style.css" text="Questions type" />
+                              <ChoiceBox fx:id="questionsTypeChoiceBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="label-white" stylesheets="@../../CssFiles/style.css" text="Accessibility" />
+                              <ChoiceBox fx:id="accessibilityChoiceBoxChoiceBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox fx:id="timeLimitAndPasswordContainer" layoutX="10.0" layoutY="10.0" spacing="20.0" stylesheets="@../../CssFiles/style.css">
+                     <children>
+                        <VBox fx:id="timeLimitContainer" spacing="5.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="label-white" stylesheets="@../../CssFiles/style.css" text="Time Limit (mins)" />
+                              <TextField fx:id="timeLimitTextField" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="150.0" promptText="45" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="passwordContainer" layoutX="30.0" layoutY="30.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="label-white" stylesheets="@../../CssFiles/style.css" text="Password" />
+                              <TextField fx:id="passwordTextField" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="150.0" promptText="your password" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <styleClass>
+                  <String fx:value="section-card" />
+                  <String fx:value="section-card-secondaryColor" />
+               </styleClass>
+            </VBox>
+            <VBox fx:id="errorBox" />
+            <HBox alignment="CENTER_RIGHT" layoutX="30.0" layoutY="469.0">
+               <children>
+                  <Button fx:id="createButton" mnemonicParsing="false" onAction="#createQuestion" text="Create" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </content>
+</ScrollPane>

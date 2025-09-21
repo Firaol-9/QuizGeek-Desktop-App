@@ -2,14 +2,23 @@ module com.example.projectloginpage {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+    requires com.kitfox.svg;
+    requires javafx.swing;
 
 
-    opens com.example.projectloginpage to javafx.fxml;
-    exports com.example.projectloginpage;
-    exports com.example.projectloginpage.controllers;
-    opens com.example.projectloginpage.controllers to javafx.fxml;
-    exports com.example.projectloginpage.services;
-    opens com.example.projectloginpage.services to javafx.fxml;
-    exports com.example.projectloginpage.models;
-    opens com.example.projectloginpage.models to javafx.fxml;
+    opens com.quiz_geek to javafx.fxml;
+    exports com.quiz_geek;
+
+    exports com.quiz_geek.models;
+    opens com.quiz_geek.models to javafx.fxml;
+    exports com.quiz_geek.controllers.student;
+    opens com.quiz_geek.controllers.student to javafx.fxml;
+    exports com.quiz_geek.controllers.teacher;
+    opens com.quiz_geek.controllers.teacher to javafx.fxml;
+    exports com.quiz_geek.controllers.common;
+    opens com.quiz_geek.controllers.common to javafx.fxml;
+    exports com.quiz_geek.services.core;
+    opens com.quiz_geek.services.core to javafx.fxml;
+    exports com.quiz_geek.exceptions;
+    opens com.quiz_geek.exceptions to javafx.fxml;
 }

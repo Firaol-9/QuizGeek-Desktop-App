@@ -38,6 +38,16 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>svgSalamander</artifactId>
+            <version>1.1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>21</version> <!-- use same version as your other javafx modules -->
+        </dependency>
     </dependencies>
 
     <build>
@@ -60,7 +70,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.projectloginpage/com.example.projectloginpage.HelloApplication
+                            <mainClass>com.example.projectloginpage/com.quiz_geek.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
