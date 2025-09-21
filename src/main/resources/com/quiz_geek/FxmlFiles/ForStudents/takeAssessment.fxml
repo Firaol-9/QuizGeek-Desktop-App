@@ -17,7 +17,7 @@
          </children>
          <styleClass>
             <String fx:value="section-card" />
-            <String fx:value="section-card-titleContainer" />
+            <String fx:value="section-card-largePadding" />
             <String fx:value="section-card-secondaryColor" />
          </styleClass>
       </HBox>
@@ -49,7 +49,7 @@
             <HBox fx:id="totalQuestionNumberContainer" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
             <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="finishButton" mnemonicParsing="false" text="Finish" onAction="#finishAssessment" />
+                  <Button fx:id="finishButton" mnemonicParsing="false" onAction="#finishAssessment" text="Finish" />
                   <Button fx:id="nextButton" layoutX="368.0" layoutY="10.0" mnemonicParsing="false" onAction="#nextQuestion" text="Next" />
                </children>
             </HBox>

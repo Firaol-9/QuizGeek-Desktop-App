@@ -93,6 +93,11 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);
 }
 
+.backgroundRadius-extraLarge{
+    -fx-background-radius: 60;
+    -fx-border-radius: 60;
+}
+
 .section-card-secondaryColor {
     -fx-background-color: -secondaryColor;
 }
@@ -109,8 +114,20 @@
     -fx-padding: 30 50 30 50;
 }
 
-.section-card-passwordQuery {
+.section-card-smallPadding {
     -fx-padding:20;
+}
+
+.section-card-mediumPadding {
+    -fx-padding:30;
+}
+
+.section-card-largePadding {
+    -fx-padding:45;
+}
+
+.section-card-extraLargePadding {
+    -fx-padding:60;
 }
 
 .section-card-titleContainer{
