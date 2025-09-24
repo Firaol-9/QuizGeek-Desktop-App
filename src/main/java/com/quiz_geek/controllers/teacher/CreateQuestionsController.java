@@ -52,7 +52,7 @@ public class CreateQuestionsController implements Initializable {
     private final int textAreaIndex = 1;//index of text area in its container
     private final int optionsRadioButtonIndex = 0;//index of the radio button in its container
     private final int optionsTextFieldIndex = 1;//index of the options textField in its container
-    private final int optionsContainerIndex = 2;////index of the options container in its container
+    private final int optionsContainerIndex = 2;//index of the options container in its container
 
     boolean isExamSelected = true, isPrivateSelected = false;
 
@@ -189,7 +189,7 @@ public class CreateQuestionsController implements Initializable {
         catch(Exception e){
             e.printStackTrace();
         }
-        removeButton.getStyleClass().add("removeOptionButton");
+        removeButton.getStyleClass().add("button-remove");
 
         buttonContainer = new HBox();
         buttonContainer.setAlignment(Pos.TOP_RIGHT);
@@ -252,7 +252,7 @@ public class CreateQuestionsController implements Initializable {
         HBox option = new HBox(5);
         Button removeOption = new Button();
 
-        removeOption.getStyleClass().add("removeOptionButton");
+        removeOption.getStyleClass().add("button-remove");
         removeOption.setAlignment(Pos.CENTER);
         try{
             removeOption.setGraphic(SvgLoader.loadSvg("/com/quiz_geek/Icons/remove.svg", 20, 24, Color.WHITE));

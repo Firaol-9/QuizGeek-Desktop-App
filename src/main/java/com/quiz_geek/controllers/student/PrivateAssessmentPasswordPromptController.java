@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class privateAssessmentPasswordPromptController {
+public class PrivateAssessmentPasswordPromptController {
 
     @FXML TextField passwordTextfield;
     @FXML Button submitButton;

@@ -159,7 +159,7 @@ public class HomeController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quiz_geek/FxmlFiles/ForStudents/privateAssessmentPasswordPrompt.fxml"));
             Parent root = loader.load();
 
-            privateAssessmentPasswordPromptController controller = loader.getController();
+            PrivateAssessmentPasswordPromptController controller = loader.getController();
             controller.setDetails(assessment.getAssessmentTitle(), assessment.getPassword(), () -> {
                 mainLayoutController.showTakeAssessment(assessment);
             });

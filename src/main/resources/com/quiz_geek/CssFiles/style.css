@@ -252,29 +252,17 @@
 }
 
 /* Remove Option buttons */
-.removeOptionButton {
-    -fx-background-color: -accentColor;
+.button-remove {
+    -fx-background-color: red;
     -fx-border-color: transparent;
     -fx-text-fill: white;
     -fx-font-size: 16px;
-    -fx-font-weight: bold;
     -fx-padding: 2 5 2 4;
     -fx-cursor: hand;
 }
 
-/* Login Buttons */
-.loginButtons {
-    -fx-background-color: -accentColor;
-    -fx-text-fill: white;
-    -fx-background-radius: 15px;
-    -fx-border-radius: 15px;
-    -fx-font-size: 16px;
-    -fx-alignment: CENTER;
-    -fx-cursor: hand;
-}
-
-.loginButtons:hover {
-    -fx-background-color: -tealDark;
+.button-remove: hover{
+    -fx-background-color: -redLight;
 }
 
 /* Toggle Buttons */
@@ -352,6 +340,15 @@
     -fx-border-color: -accentColor;
 }
 
+
+.check-box .box {
+    -fx-background-radius: 5;
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+}
+
 /* Hyperlinks */
 .hyperlink {
     -fx-text-fill: -accentColor;
@@ -368,12 +365,11 @@
     -fx-background-color: -primaryColor;
     -fx-border-color: -grayLight;
     -fx-border-radius: 50%;
-    -fx-background-radius: 7px;
-
-    -fx-min-width: 14px;
-    -fx-min-height: 14px;
-    -fx-max-width: 14px;
-    -fx-max-height: 14px;
+    -fx-padding: 3px;
+    -fx-min-width: 10px;
+    -fx-min-height: 10px;
+    -fx-max-width: 10px;
+    -fx-max-height: 10px;
 }
 
 .radio-button > .dot {
@@ -493,23 +489,14 @@
     -fx-background-color: -errorRedLight;
 }
 
-/* result-bar */
 .high-score .bar {
-    -fx-background-color: #16a34a; /* green */
+    -fx-background-color: #16a34a;
 }
 
 .medium-score .bar {
-    -fx-background-color: #facc15; /* yellow */
+    -fx-background-color: #facc15;
 }
 
 .low-score .bar {
-    -fx-background-color: #dc2626; /* red */
-}
-
-.check-box .box {
-    -fx-background-radius: 5;
-    -fx-min-width: 20px;
-    -fx-min-height: 20px;
-    -fx-pref-width: 20px;
-    -fx-pref-height: 20px;
+    -fx-background-color: #dc2626;
 }

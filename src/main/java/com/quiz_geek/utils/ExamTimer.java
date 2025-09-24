@@ -61,7 +61,7 @@ public class ExamTimer {
     private void updateLabel() {
         if (timerLabel != null) {
             int hours = timeSeconds / 3600;
-            int minutes = timeSeconds / 60;
+            int minutes = (timeSeconds % 3600) / 60;
             int seconds = timeSeconds % 60;
             timerLabel.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
         }
