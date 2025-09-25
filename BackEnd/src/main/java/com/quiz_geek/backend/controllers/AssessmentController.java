@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/assessments")
+@RequestMapping("/assessments")
 public class AssessmentController {
 
     private final AssessmentRepository repository;
