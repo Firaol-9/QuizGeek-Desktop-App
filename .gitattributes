@@ -1,0 +1,6 @@
+# Ensure Maven wrapper scripts use correct line endings
+/frontend/mvnw text eol=lf
+/backend/mvnw text eol=lf
+
+/frontend/*.cmd text eol=crlf
+/backend/*.cmd text eol=crlf

@@ -1,13 +1,20 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+### Build outputs ###
+/frontend/target/
+/backend/target/
 !**/src/main/**/target/
-!**/src/test/**/target/
+/**/src/test/**/target/
+
+/frontend/build/
+/backend/build/
+!**/src/main/**/build/
+/**/src/test/**/build/
+
+### Maven Wrapper ###
+/frontend/.mvn/wrapper/maven-wrapper.jar
+/backend/.mvn/wrapper/maven-wrapper.jar
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -26,13 +33,13 @@ target/
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+/nb-gradle/
 
 ### VS Code ###
 .vscode/
 
 ### Mac OS ###
 .DS_Store
+
+### Misc ###
+HELP.md
