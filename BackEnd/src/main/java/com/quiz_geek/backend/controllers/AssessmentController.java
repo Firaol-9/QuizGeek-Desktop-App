@@ -1,7 +1,8 @@
 package com.quiz_geek.backend.controllers;
 
 import com.quiz_geek.backend.models.Assessment;
-import com.quiz_geek.backend.repositories.AssessmentRepository;
+import com.quiz_geek.backend.services.AssessmentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,19 +11,20 @@ import java.util.List;
 @RequestMapping("/assessments")
 public class AssessmentController {
 
-    private final AssessmentRepository repository;
+    private final AssessmentService assessmentService;
 
-    public AssessmentController(AssessmentRepository repository) {
-        this.repository = repository;
-    }
-
-    @GetMapping
-    public List<Assessment> getAll() {
-        return repository.findAll();
+    public AssessmentController(AssessmentService assessmentService) {
+        this.assessmentService = assessmentService;
     }
 
     @PostMapping
-    public Assessment create(@RequestBody Assessment assessment) {
-        return repository.save(assessment);
+    public ResponseEntity<Assessment> createAssessment(@RequestBody Assessment assessment) {
+        Assessment saved = assessmentService.createAssessment(assessment);
+        return ResponseEntity.ok(saved);
+    }
+
+    @GetMapping
+    public List<Assessment> getAll(){
+        return assessmentService.getAll();
     }
 }

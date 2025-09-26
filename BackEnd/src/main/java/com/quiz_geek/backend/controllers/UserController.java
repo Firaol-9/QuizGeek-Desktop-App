@@ -2,6 +2,7 @@ package com.quiz_geek.backend.controllers;
 
 import com.quiz_geek.backend.models.User;
 import com.quiz_geek.backend.repositories.UserRepository;
+import com.quiz_geek.backend.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,24 +11,30 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository repository){
-        this.userRepository = repository;
+    public UserController(UserService userService){
+        this.userService = userService;
     }
 
     @GetMapping
     public List<User> getAll(){
-        return userRepository.findAll();
+        return userService.getAll();
     }
 
     @GetMapping("/{id}")
     public User getById(@PathVariable String id){
-        return userRepository.findById(id).orElse(null);
+        return userService.getById(id);
     }
 
     @PostMapping
     public User create(@RequestBody User user){
-        return userRepository.save(user);
+        return userService.createUser(user);
+    }
+
+    @GetMapping("/by-email")
+    public User getUserByEmail(@RequestParam String email) {
+        return userService.getUserByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
