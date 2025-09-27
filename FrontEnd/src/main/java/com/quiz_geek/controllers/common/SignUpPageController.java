@@ -3,6 +3,8 @@ package com.quiz_geek.controllers.common;
 import com.quiz_geek.exceptions.EmailAlreadyExistsException;
 import com.quiz_geek.exceptions.PasswordMismatchException;
 import com.quiz_geek.models.UserRole;
+import com.quiz_geek.payloads.UserDTO;
+import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,8 +72,7 @@ public class SignUpPageController implements Initializable{
         UserRole role = choiceBox.getValue();
 
         try {
-            userService.signUp(fullName, email, password, confirmPassword, role);
-
+            UserDTO userDTO = ApiService.signup(fullName, email, password, role);
             String filePath;
             if (role == UserRole.STUDENT)
                 filePath = "ForStudents/MainLayoutForStudents.fxml";
@@ -87,12 +88,8 @@ public class SignUpPageController implements Initializable{
             stage.setMaximized(true);
             stage.show();
         }
-        catch(EmailAlreadyExistsException e){
-            System.out.println(e.getMessage());
+        catch(Exception e){
             showError(emailErrorVbox, e.getMessage());
-        }
-        catch(PasswordMismatchException e){
-            showError(passwordMismatchErrorVbox, e.getMessage());
         }
     }
 

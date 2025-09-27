@@ -1,5 +1,6 @@
 package com.quiz_geek.services.core;
 
+import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
 
 import java.net.URI;
@@ -28,10 +29,10 @@ public class ApiService {
         return mapper.readValue(response.body(), UserDTO.class); // JSON response
     }
 
-    public static UserDTO signup(String fullName, String email, String password, String role) throws Exception {
+    public static UserDTO signup(String fullName, String email, String password, UserRole role) throws Exception {
         String json = String.format(
                 "{\"fullName\":\"%s\",\"email\":\"%s\",\"password\":\"%s\",\"role\":\"%s\"}",
-                fullName, email, password, role
+                fullName, email, password, role.toString().toUpperCase()
         );
 
         HttpRequest request = HttpRequest.newBuilder()
