@@ -1,8 +1,9 @@
 package com.quiz_geek.backend.controllers;
 
+import com.quiz_geek.backend.exceptions.UserNotFoundException;
 import com.quiz_geek.backend.models.User;
-import com.quiz_geek.backend.repositories.UserRepository;
 import com.quiz_geek.backend.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService){
@@ -27,14 +29,9 @@ public class UserController {
         return userService.getById(id);
     }
 
-    @PostMapping
-    public User create(@RequestBody User user){
-        return userService.createUser(user);
-    }
-
     @GetMapping("/by-email")
     public User getUserByEmail(@RequestParam String email) {
         return userService.getUserByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(email));
     }
 }

@@ -3,6 +3,8 @@ package com.quiz_geek.controllers.common;
 import com.quiz_geek.exceptions.EmailNotFoundException;
 import com.quiz_geek.exceptions.IncorrectPasswordException;
 import com.quiz_geek.models.UserRole;
+import com.quiz_geek.payloads.UserDTO;
+import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
 
 import javafx.event.ActionEvent;
@@ -60,12 +62,11 @@ public class LoginPageController implements Initializable {
 
 
         try {
-            userService.login(email, password);
-
-            String fxmlPath;
-            if (UserService.getCurrentUser().getRole() == UserRole.STUDENT)
+            UserDTO userDTO = ApiService.login(email, password);
+            String fxmlPath = "";
+            if (userDTO.getRole() == UserRole.STUDENT)
                 fxmlPath = "ForStudents/MainLayoutForStudents.fxml";
-            else
+            else if (userDTO.getRole() == UserRole.TEACHER)
                 fxmlPath = "ForTeachers/MainLayoutForTeachers.fxml";
 
             Parent root = SceneManager.getPage(fxmlPath);
@@ -77,11 +78,9 @@ public class LoginPageController implements Initializable {
             stage.setMaximized(true);
             stage.show();
         }
-        catch(EmailNotFoundException e){
+        catch(Exception e) {
+            System.out.println(e.getMessage());
             showError(emailErrorVbox, e.getMessage());
-        }
-        catch(IncorrectPasswordException e){
-            showError(incorrectPasswordErrorVbox, e.getMessage());
         }
     }
 

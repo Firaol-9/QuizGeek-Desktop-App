@@ -4,10 +4,15 @@ module com.example.projectloginpage {
     requires java.desktop;
     requires com.kitfox.svg;
     requires javafx.swing;
+    requires java.net.http;
+    requires static lombok;
+    requires com.fasterxml.jackson.databind;
 
 
     opens com.quiz_geek to javafx.fxml;
     exports com.quiz_geek;
+
+    opens com.quiz_geek.payloads to com.fasterxml.jackson.databind;
 
     exports com.quiz_geek.models;
     opens com.quiz_geek.models to javafx.fxml;
