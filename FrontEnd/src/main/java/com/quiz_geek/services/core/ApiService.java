@@ -1,5 +1,6 @@
 package com.quiz_geek.services.core;
 
+import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
 import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
 
@@ -26,10 +27,18 @@ public class ApiService {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return mapper.readValue(response.body(), UserDTO.class); // JSON response
+        System.out.println(response.statusCode());
+
+        if ( response.statusCode() == 200)
+            return mapper.readValue(response.body(), UserDTO.class);
+        else if ( response.statusCode() == 401)
+            throw new IncorrectPasswordOrEmailException("Invalid Password or Email!");
+        else
+            throw new RuntimeException("Sever error: " + response.statusCode());
     }
 
-    public static UserDTO signup(String fullName, String email, String password, UserRole role) throws Exception {
+    public static UserDTO signup(String fullName, String email, String password, UserRole role)
+                    throws IncorrectPasswordOrEmailException, RuntimeException, Exception {
         String json = String.format(
                 "{\"fullName\":\"%s\",\"email\":\"%s\",\"password\":\"%s\",\"role\":\"%s\"}",
                 fullName, email, password, role.toString().toUpperCase()
@@ -44,7 +53,7 @@ public class ApiService {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return mapper.readValue(response.body(), UserDTO.class); // JSON response
+        return mapper.readValue(response.body(), UserDTO.class);
     }
 }
 

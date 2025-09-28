@@ -1,12 +1,14 @@
 package com.quiz_geek.controllers.common;
 
-import com.quiz_geek.exceptions.EmailNotFoundException;
-import com.quiz_geek.exceptions.IncorrectPasswordException;
+import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
+import com.quiz_geek.exceptions.InvalidInputException;
 import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
 
+import com.quiz_geek.utils.UIHelpers;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +36,8 @@ public class LoginPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userService.addUser();
+        UIHelpers.nodeVisibility(emailErrorVbox, false);
+        UIHelpers.nodeVisibility(incorrectPasswordErrorVbox, false);
     }
 
     @FXML
@@ -51,40 +54,66 @@ public class LoginPageController implements Initializable {
     }
 
     @FXML
-    void linkToMainPage(ActionEvent event) throws IOException{
-
-        //clear the error labels in the Vboxes if there are any
-        emailErrorVbox.getChildren().clear();
-        incorrectPasswordErrorVbox.getChildren().clear();
+    void linkToMainPage(ActionEvent event) {
+        UIHelpers.nodeVisibility(emailErrorVbox, false);
+        UIHelpers.nodeVisibility(incorrectPasswordErrorVbox, false);
 
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
+        // Define background task
+        Task<UserDTO> task = new Task<>() {
+            @Override
+            protected UserDTO call() throws Exception {
+                userService.validateLogin(email, password);
+                return ApiService.login(email, password);
+            }
+        };
 
-        try {
-            UserDTO userDTO = ApiService.login(email, password);
+        // Success handler (runs on UI thread automatically)
+        task.setOnSucceeded(e -> {
+            UserDTO userDTO = task.getValue();
             String fxmlPath = "";
+
             if (userDTO.getRole() == UserRole.STUDENT)
                 fxmlPath = "ForStudents/MainLayoutForStudents.fxml";
             else if (userDTO.getRole() == UserRole.TEACHER)
                 fxmlPath = "ForTeachers/MainLayoutForTeachers.fxml";
 
-            Parent root = SceneManager.getPage(fxmlPath);
+            try {
+                Parent root = SceneManager.getPage(fxmlPath);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = stage.getScene();
+                stage.setScene(scene);
+                scene.setRoot(root);
+                stage.setMaximized(true);
+                stage.show();
+            } catch (IOException ex) {
+                showError(emailErrorVbox, "Failed to load main page.");
+            }
+        });
 
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = stage.getScene();
-            stage.setScene(scene);
-            scene.setRoot(root);
-            stage.setMaximized(true);
-            stage.show();
-        }
-        catch(Exception e) {
-            System.out.println(e.getMessage());
-            showError(emailErrorVbox, e.getMessage());
-        }
+        // Error handler (runs on UI thread automatically)
+        task.setOnFailed(e -> {
+            Throwable ex = task.getException();
+            if (ex instanceof InvalidInputException) {
+                showError(emailErrorVbox, ex.getMessage());
+            } else if (ex instanceof IncorrectPasswordOrEmailException) {
+                showError(incorrectPasswordErrorVbox, ex.getMessage());
+            } else {
+                showError(emailErrorVbox, "Something went wrong: " + ex.getMessage());
+            }
+        });
+
+        // Run task in background thread
+        new Thread(task).start();
     }
 
+
     private void showError(VBox vbox, String error){
+        vbox.getChildren().clear();
+        vbox.getChildren().clear();
+        UIHelpers.nodeVisibility(vbox, true);
         Label errorLabel = new Label(error);
         errorLabel.getStyleClass().addAll("label-errorRed", "label-verySmall");
         vbox.getChildren().add(errorLabel);

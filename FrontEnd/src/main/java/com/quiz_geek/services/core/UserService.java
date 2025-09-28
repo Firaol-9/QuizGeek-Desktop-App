@@ -1,9 +1,6 @@
 package com.quiz_geek.services.core;
 
-import com.quiz_geek.exceptions.EmailAlreadyExistsException;
-import com.quiz_geek.exceptions.EmailNotFoundException;
-import com.quiz_geek.exceptions.IncorrectPasswordException;
-import com.quiz_geek.exceptions.PasswordMismatchException;
+import com.quiz_geek.exceptions.*;
 import com.quiz_geek.models.User;
 import com.quiz_geek.models.UserRole;
 
@@ -32,24 +29,22 @@ public class UserService {
         users.put("teacher@gmail.com", new User("teacher", "teacher@gmail.com", "1234", UserRole.TEACHER));
     }
 
-    public boolean signUp(String userName, String email, String password, String confirmPassword, UserRole role)
-            throws EmailAlreadyExistsException, PasswordMismatchException {
-        if (users.containsKey(email)) throw new EmailAlreadyExistsException("Email already exists. Try to login.");
+    public void validateSignup(String userName, String email, String password, String confirmPassword, UserRole role)
+            throws InvalidInputException, PasswordMismatchException {
+        if ( userName.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank()){
+            throw new InvalidInputException("Invalid input! please fill all the text fields.");
+        }
         if (!password.equals(confirmPassword)) throw new PasswordMismatchException("Password Mismatch!");
 
         User user = new User(userName, email, password, role);
         users.put(email, user );
         this.setCurrentUser(user);
-        return true;
     }
 
-    public boolean login(String email, String password)
-            throws EmailNotFoundException, IncorrectPasswordException {
-        User user = users.get(email);
-        if ( user == null) throw new EmailNotFoundException("E-mail not found. Signup first.");
-        if ( !user.getPassword().equals(password)) throw new IncorrectPasswordException("Incorrect password!!");
-        this.setCurrentUser(user);
-        return true;
+    public void validateLogin(String email, String password)
+            throws InvalidInputException, IncorrectPasswordOrEmailException {
+        if (email.isBlank() || password.isBlank())
+            throw new InvalidInputException("Invalid input! please fill all the text fields.");
     }
 
     public Collection<User> getUsers(){

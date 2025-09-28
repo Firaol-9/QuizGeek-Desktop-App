@@ -1,11 +1,13 @@
 package com.quiz_geek.controllers.common;
 
 import com.quiz_geek.exceptions.EmailAlreadyExistsException;
+import com.quiz_geek.exceptions.InvalidInputException;
 import com.quiz_geek.exceptions.PasswordMismatchException;
 import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
+import com.quiz_geek.utils.UIHelpers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +35,7 @@ public class SignUpPageController implements Initializable{
 
     @FXML VBox emailErrorVbox;
     @FXML VBox passwordMismatchErrorVbox;
+    @FXML VBox generalErrorBox;
 
     private final UserService userService = UserService.getInstance();
 
@@ -44,6 +47,10 @@ public class SignUpPageController implements Initializable{
         choiceBox.setValue(UserRole.STUDENT);
         choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
         });
+
+        UIHelpers.nodeVisibility(emailErrorVbox, false);
+        UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
+        UIHelpers.nodeVisibility(generalErrorBox, false);
     }
 
     @FXML
@@ -62,8 +69,9 @@ public class SignUpPageController implements Initializable{
     void linkToMainPage(ActionEvent event) throws IOException{
 
         //clear all the error labels in both VBoxes
-        emailErrorVbox.getChildren().clear();
-        passwordMismatchErrorVbox.getChildren().clear();
+        UIHelpers.nodeVisibility(emailErrorVbox, false);
+        UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
+        UIHelpers.nodeVisibility(generalErrorBox, false);
 
         String fullName = fullNameTextField.getText();
         String email = emailTextField.getText();
@@ -72,11 +80,13 @@ public class SignUpPageController implements Initializable{
         UserRole role = choiceBox.getValue();
 
         try {
+            userService.validateSignup(fullName, email, password, confirmPassword, role);
+
             UserDTO userDTO = ApiService.signup(fullName, email, password, role);
-            String filePath;
-            if (role == UserRole.STUDENT)
+            String filePath = "";
+            if (userDTO.getRole() == UserRole.STUDENT)
                 filePath = "ForStudents/MainLayoutForStudents.fxml";
-            else
+            else if (userDTO.getRole() == UserRole.TEACHER)
                 filePath = "ForTeachers/MainLayoutForTeachers.fxml";
 
             Parent root = SceneManager.getPage(filePath);
@@ -88,12 +98,21 @@ public class SignUpPageController implements Initializable{
             stage.setMaximized(true);
             stage.show();
         }
-        catch(Exception e){
+        catch (PasswordMismatchException e){
             showError(emailErrorVbox, e.getMessage());
+        }
+        catch(InvalidInputException e){
+            showError(generalErrorBox, e.getMessage());
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 
     private void showError(VBox vbox, String error){
+        vbox.getChildren().clear();
+        vbox.getChildren().clear();
+        UIHelpers.nodeVisibility(vbox, true);
         Label errorLabel = new Label(error);
         errorLabel.getStyleClass().addAll("label-errorRed", "label-verySmall");
         vbox.getChildren().add(errorLabel);
