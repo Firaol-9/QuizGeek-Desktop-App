@@ -1,6 +1,7 @@
 package com.quiz_geek.controllers.common;
 
 import com.quiz_geek.exceptions.EmailAlreadyExistsException;
+import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
 import com.quiz_geek.exceptions.InvalidInputException;
 import com.quiz_geek.exceptions.PasswordMismatchException;
 import com.quiz_geek.models.UserRole;
@@ -8,6 +9,7 @@ import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
 import com.quiz_geek.utils.UIHelpers;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,7 +70,6 @@ public class SignUpPageController implements Initializable{
     @FXML
     void linkToMainPage(ActionEvent event) throws IOException{
 
-        //clear all the error labels in both VBoxes
         UIHelpers.nodeVisibility(emailErrorVbox, false);
         UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
         UIHelpers.nodeVisibility(generalErrorBox, false);
@@ -79,34 +80,52 @@ public class SignUpPageController implements Initializable{
         String confirmPassword = confirmPasswordTextField.getText();
         UserRole role = choiceBox.getValue();
 
-        try {
-            userService.validateSignup(fullName, email, password, confirmPassword, role);
+        Task<UserDTO> task = new Task<UserDTO>() {
+            @Override
+            protected UserDTO call() throws Exception {
+                userService.validateSignup(fullName, email, password, confirmPassword, role);
+                return ApiService.signup(fullName, email, password, role);
+            }
+        };
 
-            UserDTO userDTO = ApiService.signup(fullName, email, password, role);
+        task.setOnSucceeded(e ->{
+            UserDTO userDTO = task.getValue();
             String filePath = "";
+
             if (userDTO.getRole() == UserRole.STUDENT)
                 filePath = "ForStudents/MainLayoutForStudents.fxml";
             else if (userDTO.getRole() == UserRole.TEACHER)
                 filePath = "ForTeachers/MainLayoutForTeachers.fxml";
 
-            Parent root = SceneManager.getPage(filePath);
+            try {
+                Parent root = SceneManager.getPage(filePath);
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene scene = stage.getScene();
+                stage.setScene(scene);
+                scene.setRoot(root);
+                stage.setMaximized(true);
+                stage.show();
+            }
+            catch (IOException error){
+                showError(generalErrorBox, "Failed to load main page.");
+            }
 
-            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Scene scene = stage.getScene();
-            stage.setScene(scene);
-            scene.setRoot(root);
-            stage.setMaximized(true);
-            stage.show();
-        }
-        catch (PasswordMismatchException e){
-            showError(emailErrorVbox, e.getMessage());
-        }
-        catch(InvalidInputException e){
-            showError(generalErrorBox, e.getMessage());
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        });
+
+        task.setOnFailed(e -> {
+            Throwable ex = task.getException();
+            if (ex instanceof InvalidInputException) {
+                showError(generalErrorBox, ex.getMessage());
+            } else if (ex instanceof EmailAlreadyExistsException) {
+                showError(emailErrorVbox, ex.getMessage());
+            } else if (ex instanceof PasswordMismatchException){
+                showError(passwordMismatchErrorVbox, ex.getMessage());
+            }else {
+                showError(generalErrorBox, "Something went wrong: " + ex.getMessage());
+            }
+        });
+
+        new Thread(task).start();
     }
 
     private void showError(VBox vbox, String error){

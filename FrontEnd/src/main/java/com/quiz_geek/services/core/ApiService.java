@@ -1,5 +1,6 @@
 package com.quiz_geek.services.core;
 
+import com.quiz_geek.exceptions.EmailAlreadyExistsException;
 import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
 import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
@@ -34,7 +35,7 @@ public class ApiService {
         else if ( response.statusCode() == 401)
             throw new IncorrectPasswordOrEmailException("Invalid Password or Email!");
         else
-            throw new RuntimeException("Sever error: " + response.statusCode());
+            throw new RuntimeException("Server error: " + response.statusCode());
     }
 
     public static UserDTO signup(String fullName, String email, String password, UserRole role)
@@ -53,7 +54,12 @@ public class ApiService {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return mapper.readValue(response.body(), UserDTO.class);
+        if ( response.statusCode() == 200)
+            return mapper.readValue(response.body(), UserDTO.class);
+        else if ( response.statusCode() == 400)
+            throw new EmailAlreadyExistsException("Email already in use!");
+        else
+            throw new RuntimeException("Server error: " + response.statusCode());
     }
 }
 

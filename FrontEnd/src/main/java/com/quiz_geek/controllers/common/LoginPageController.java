@@ -61,7 +61,6 @@ public class LoginPageController implements Initializable {
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
-        // Define background task
         Task<UserDTO> task = new Task<>() {
             @Override
             protected UserDTO call() throws Exception {
@@ -70,7 +69,6 @@ public class LoginPageController implements Initializable {
             }
         };
 
-        // Success handler (runs on UI thread automatically)
         task.setOnSucceeded(e -> {
             UserDTO userDTO = task.getValue();
             String fxmlPath = "";
@@ -93,7 +91,6 @@ public class LoginPageController implements Initializable {
             }
         });
 
-        // Error handler (runs on UI thread automatically)
         task.setOnFailed(e -> {
             Throwable ex = task.getException();
             if (ex instanceof InvalidInputException) {
@@ -105,7 +102,6 @@ public class LoginPageController implements Initializable {
             }
         });
 
-        // Run task in background thread
         new Thread(task).start();
     }
 
