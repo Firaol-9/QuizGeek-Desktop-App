@@ -23,21 +23,14 @@ public class UserService {
         return instance;
     }
 
-    //TODO: remove hard-coded users one connected to server
-    public void addUser(){
-        users.put("student@gmail.com", new User("student", "student@gmail.com", "1234", UserRole.STUDENT));
-        users.put("teacher@gmail.com", new User("teacher", "teacher@gmail.com", "1234", UserRole.TEACHER));
-    }
-
     public void validateSignup(String userName, String email, String password, String confirmPassword, UserRole role)
             throws InvalidInputException, PasswordMismatchException {
         if ( userName.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank()){
-            throw new InvalidInputException("Invalid input! please fill all the text fields.");
+            throw new InvalidInputException("Invalid input! please fill all the fields.");
         }
         if (!password.equals(confirmPassword)) throw new PasswordMismatchException("Password Mismatch!");
 
         User user = new User(userName, email, password, role);
-        users.put(email, user );
         this.setCurrentUser(user);
     }
 

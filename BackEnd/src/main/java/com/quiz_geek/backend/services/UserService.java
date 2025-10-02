@@ -67,4 +67,12 @@ public class UserService {
     public boolean userExistsByEmail(String email){
         return userRepository.existsByEmail(email);
     }
+
+    public User createUser(User user){
+        if (userRepository.existsByEmail(user.getEmail())){
+            throw new RuntimeException("Email already in use");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
 }

@@ -8,6 +8,7 @@ import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
+import com.quiz_geek.utils.GoogleAuthHelper;
 import com.quiz_geek.utils.UIHelpers;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -24,9 +25,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 public class SignUpPageController implements Initializable{
 
@@ -37,7 +41,7 @@ public class SignUpPageController implements Initializable{
 
     @FXML VBox emailErrorVbox;
     @FXML VBox passwordMismatchErrorVbox;
-    @FXML VBox generalErrorBox;
+    @FXML VBox errorBox;
 
     private final UserService userService = UserService.getInstance();
 
@@ -52,7 +56,7 @@ public class SignUpPageController implements Initializable{
 
         UIHelpers.nodeVisibility(emailErrorVbox, false);
         UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
-        UIHelpers.nodeVisibility(generalErrorBox, false);
+        UIHelpers.nodeVisibility(errorBox, false);
     }
 
     @FXML
@@ -72,7 +76,7 @@ public class SignUpPageController implements Initializable{
 
         UIHelpers.nodeVisibility(emailErrorVbox, false);
         UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
-        UIHelpers.nodeVisibility(generalErrorBox, false);
+        UIHelpers.nodeVisibility(errorBox, false);
 
         String fullName = fullNameTextField.getText();
         String email = emailTextField.getText();
@@ -107,7 +111,8 @@ public class SignUpPageController implements Initializable{
                 stage.show();
             }
             catch (IOException error){
-                showError(generalErrorBox, "Failed to load main page.");
+                UIHelpers.nodeVisibility(errorBox, true);
+                showError(errorBox, "Failed to load main page.");
             }
 
         });
@@ -115,17 +120,76 @@ public class SignUpPageController implements Initializable{
         task.setOnFailed(e -> {
             Throwable ex = task.getException();
             if (ex instanceof InvalidInputException) {
-                showError(generalErrorBox, ex.getMessage());
+                UIHelpers.nodeVisibility(errorBox, true);
+                showError(errorBox, ex.getMessage());
             } else if (ex instanceof EmailAlreadyExistsException) {
                 showError(emailErrorVbox, ex.getMessage());
             } else if (ex instanceof PasswordMismatchException){
                 showError(passwordMismatchErrorVbox, ex.getMessage());
             }else {
-                showError(generalErrorBox, "Something went wrong: " + ex.getMessage());
+                UIHelpers.nodeVisibility(errorBox, true);
+                showError(errorBox, "Something went wrong: " + ex.getMessage());
             }
         });
 
         new Thread(task).start();
+    }
+
+    @FXML
+    public void signupWithGoogle(ActionEvent event) {
+        UIHelpers.nodeVisibility(emailErrorVbox, false);
+        UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
+        UIHelpers.nodeVisibility(errorBox, false);
+
+        // Use CompletableFuture to handle async Google authentication
+        GoogleAuthHelper.simulateGoogleLoginAsync()
+            .thenCompose(googleUser -> {
+                if (googleUser == null) {
+                    throw new RuntimeException("Google signup cancelled");
+                }
+                
+                // Call backend Google login endpoint (same as login for OAuth users)
+                try {
+                    UserDTO userDTO = ApiService.googleLogin(googleUser.getEmail(), googleUser.getName(), googleUser.getGoogleId());
+                    return CompletableFuture.completedFuture(userDTO);
+                } catch (Exception e) {
+                    CompletableFuture<UserDTO> failedFuture = new CompletableFuture<>();
+                    failedFuture.completeExceptionally(e);
+                    return failedFuture;
+                }
+            })
+            .thenAccept(userDTO -> {
+                // Handle successful signup on FX thread
+                javafx.application.Platform.runLater(() -> {
+                    String filePath = "";
+
+                    if (userDTO.getRole() == UserRole.STUDENT)
+                        filePath = "ForStudents/MainLayoutForStudents.fxml";
+                    else if (userDTO.getRole() == UserRole.TEACHER)
+                        filePath = "ForTeachers/MainLayoutForTeachers.fxml";
+
+                    try {
+                        Parent root = SceneManager.getPage(filePath);
+                        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                        Scene scene = stage.getScene();
+                        stage.setScene(scene);
+                        scene.setRoot(root);
+                        stage.setMaximized(true);
+                        stage.show();
+                    } catch (IOException error) {
+                        UIHelpers.nodeVisibility(errorBox, true);
+                        showError(errorBox, "Failed to load main page.");
+                    }
+                });
+            })
+            .exceptionally(throwable -> {
+                // Handle errors on FX thread
+                javafx.application.Platform.runLater(() -> {
+                    UIHelpers.nodeVisibility(errorBox, true);
+                    showError(errorBox, "Google signup failed: " + throwable.getMessage());
+                });
+                return null;
+            });
     }
 
     private void showError(VBox vbox, String error){

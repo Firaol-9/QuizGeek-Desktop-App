@@ -24,7 +24,7 @@
                <String fx:value="label-veryLarge" />
             </styleClass>
          </Label>
-         <VBox fx:id="generalErrorBox" layoutX="55.0" layoutY="268.0" />
+         <VBox fx:id="errorBox" layoutX="55.0" layoutY="268.0" />
          <VBox alignment="BOTTOM_LEFT" layoutX="30.0" layoutY="30.0" spacing="5.0">
             <children>
                <Label stylesheets="@../../CssFiles/style.css" text="Full Name">
@@ -102,7 +102,7 @@
             <children>
          
                     <Button fx:id="signUpButton" maxWidth="1.7976931348623157E308" onAction="#linkToMainPage" stylesheets="@../../CssFiles/style.css" text="Sign-up" />
-                 <Button fx:id="googButton" maxWidth="1.7976931348623157E308" styleClass="button-white" stylesheets="@../../CssFiles/style.css" text="Continue with Google" />
+                 <Button fx:id="googButton" maxWidth="1.7976931348623157E308" onAction="#signupWithGoogle" styleClass="button-white" stylesheets="@../../CssFiles/style.css" text="Continue with Google" />
             </children>
             <VBox.margin>
                <Insets top="20.0" />

@@ -2,10 +2,12 @@ package com.quiz_geek.backend.models;
 
 import com.quiz_geek.backend.mappers.UserMapper;
 import com.quiz_geek.backend.payload.requests.LoginRequest;
+import com.quiz_geek.backend.payload.responses.AuthResponse;
 import com.quiz_geek.backend.payload.responses.MessageResponse;
 import com.quiz_geek.backend.payload.requests.SignupRequest;
 import com.quiz_geek.backend.payload.responses.UserResponse;
 import com.quiz_geek.backend.services.UserService;
+import com.quiz_geek.backend.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,8 @@ public class AuthController {
     private final UserService userService;
     @Autowired
     private final UserMapper userMapper;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public AuthController(UserService userService,
                           UserMapper userMapper){
@@ -35,9 +39,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> loginUser(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest){
         User user = userService.authenticateUser(loginRequest);
         UserResponse response = userMapper.toResponse(user, "successful");
-        return ResponseEntity.ok(response);
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+        AuthResponse authResponse = new AuthResponse(token, response);
+        return ResponseEntity.ok(authResponse);
     }
 }
