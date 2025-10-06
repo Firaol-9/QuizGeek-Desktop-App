@@ -10,5 +10,7 @@ public class SessionManager {
     public static void setToken(String token) {
         SessionManager.token = token;
     }
+
+    public static void deleteToken(){ token = null; };
 }
 

@@ -29,9 +29,6 @@ public class UserService {
             throw new InvalidInputException("Invalid input! please fill all the fields.");
         }
         if (!password.equals(confirmPassword)) throw new PasswordMismatchException("Password Mismatch!");
-
-        User user = new User(userName, email, password, role);
-        this.setCurrentUser(user);
     }
 
     public void validateLogin(String email, String password)

@@ -3,6 +3,7 @@
     -secondaryColor: #1E293B;
     -accentColor: #0D9488;
 
+    -secondaryColorLight: #243044;
     -grayLight: #E0E0E0;
     -tealDark: #00796B;
     -tealDarker: #004D40;
@@ -242,6 +243,21 @@
     -fx-background-color: #F8F8F8;
 }
 
+.button-secondaryColor{
+    -fx-background-color: -secondaryColor;
+    -fx-border-color: #305592;
+    -fx-text-fill-white;
+}
+
+.button-secondaryColor: hover{
+    -fx-background-color: -secondaryColorLight;
+}
+
+.button-secondaryColor: pressed{
+    -fx-background-color: -secondaryColorLight;
+    -fx-border-color: -accentColor;
+}
+
 .button-transparent{
     -fx-background-color: transparent;
     -fx-text-fill: black;
@@ -249,6 +265,10 @@
 
 .button-transparent: hover{
     -fx-background-color: transparent;
+}
+
+.button-logout{
+    -fx-border-color: #305592;
 }
 
 /* Remove Option buttons */

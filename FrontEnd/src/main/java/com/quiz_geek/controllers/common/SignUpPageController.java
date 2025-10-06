@@ -4,6 +4,7 @@ import com.quiz_geek.exceptions.EmailAlreadyExistsException;
 import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
 import com.quiz_geek.exceptions.InvalidInputException;
 import com.quiz_geek.exceptions.PasswordMismatchException;
+import com.quiz_geek.mappers.UserMapper;
 import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
@@ -94,6 +95,8 @@ public class SignUpPageController implements Initializable{
 
         task.setOnSucceeded(e ->{
             UserDTO userDTO = task.getValue();
+            UserService.getInstance().setCurrentUser(UserMapper.toUser(userDTO));
+
             String filePath = "";
 
             if (userDTO.getRole() == UserRole.STUDENT)

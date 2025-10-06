@@ -2,6 +2,7 @@ package com.quiz_geek.controllers.common;
 
 import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
 import com.quiz_geek.exceptions.InvalidInputException;
+import com.quiz_geek.mappers.UserMapper;
 import com.quiz_geek.models.UserRole;
 import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
@@ -77,6 +78,7 @@ public class LoginPageController implements Initializable {
 
         task.setOnSucceeded(e -> {
             UserDTO userDTO = task.getValue();
+            UserService.getInstance().setCurrentUser(UserMapper.toUser(userDTO));
             String fxmlPath = "";
 
             if (userDTO.getRole() == UserRole.STUDENT)
@@ -95,6 +97,7 @@ public class LoginPageController implements Initializable {
             } catch (IOException ex) {
                 UIHelpers.nodeVisibility(errorBox, true);
                 showError(errorBox, "Failed to load main page.");
+                ex.printStackTrace();
             }
         });
 

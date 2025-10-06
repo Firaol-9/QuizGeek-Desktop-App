@@ -1,20 +1,26 @@
 package com.quiz_geek.controllers.student;
 
 import com.quiz_geek.controllers.common.SceneManager;
+import com.quiz_geek.controllers.common.SessionManager;
 import com.quiz_geek.models.Assessment;
 import com.quiz_geek.models.EvaluationResult;
+import com.quiz_geek.services.core.UserService;
 import com.quiz_geek.utils.UIHelpers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainLayoutControllerForStudents implements Initializable {
@@ -27,6 +33,9 @@ public class MainLayoutControllerForStudents implements Initializable {
     @FXML ToggleButton dashboardButton;
     @FXML ToggleButton homeButton;
     @FXML ToggleButton myResultsButton;
+
+    @FXML ImageView avatarImage;
+    @FXML Label usernameLabel;
 
     private final ToggleGroup sidebarGroup = new ToggleGroup();
 
@@ -49,6 +58,17 @@ public class MainLayoutControllerForStudents implements Initializable {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+        usernameLabel.setText(UserService.getCurrentUser().getFullName());
+
+        Image image = new Image(getClass().getResourceAsStream("/com/quiz_geek/images/avatar2.png"));
+        avatarImage.setImage(image);
+
+        avatarImage.setClip(new javafx.scene.shape.Circle(
+                avatarImage.getFitWidth() / 2,
+                avatarImage.getFitHeight() / 2,
+                avatarImage.getFitWidth() / 2
+        ));
     }
 
     @FXML
@@ -85,6 +105,36 @@ public class MainLayoutControllerForStudents implements Initializable {
         makeAssessmentAndResultContainerVisible();
         stackPane.getChildren().setAll(root);
     }
+
+    @FXML
+    private void showLogoutConfirmation() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to log out?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            handleLogout();
+        }
+    }
+
+    private void handleLogout() throws IOException {
+        SessionManager.deleteToken();
+        UserService.getInstance().setCurrentUser(null);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quiz_geek/FxmlFiles/common/Login.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Scene scene = stage.getScene();
+        scene.setRoot(root);
+        scene.setRoot(root);
+        stage.setScene(scene);
+    }
+
+
 
     public void makeMainLayoutVisible(){
         UIHelpers.nodeVisibility(stackPane, false);
