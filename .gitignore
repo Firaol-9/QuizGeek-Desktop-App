@@ -9,6 +9,18 @@
 !**/src/main/**/build/
 /**/src/test/**/build/
 
+# Spring Boot (backend)
+/backend/src/main/resources/application-*.yml
+/backend/src/main/resources/application-*.properties
+/backend/src/main/resources/*.db
+/backend/*.log
+
+# JavaFX (frontend)
+/frontend/out/
+/frontend/build/
+/frontend/dist/
+/frontend/*.log
+
 ### Maven Wrapper ###
 /frontend/.mvn/wrapper/maven-wrapper.jar
 /backend/.mvn/wrapper/maven-wrapper.jar
