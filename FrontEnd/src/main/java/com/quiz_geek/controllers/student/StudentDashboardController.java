@@ -170,6 +170,7 @@ public class StudentDashboardController {
         LocalDate first = ym.atDay(1);
         int startIdx = first.getDayOfWeek().getValue() % 7; // Sunday index 0
         int length = ym.lengthOfMonth();
+        // compute longest streak blocks for visual continuity (simple: highlight any active day, continuous effect handled by adjacent cells styling)
         for (int day = 1; day <= length; day++) {
             LocalDate d = ym.atDay(day);
             Label cell = new Label(String.valueOf(day));

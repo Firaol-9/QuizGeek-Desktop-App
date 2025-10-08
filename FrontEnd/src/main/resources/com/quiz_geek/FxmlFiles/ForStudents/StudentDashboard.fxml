@@ -116,37 +116,39 @@
                                     </children>
                                 </HBox>
 
-                                <!-- Calendar Streak -->
-                                <VBox fx:id="cardCalendar" spacing="10.0" styleClass="section-card-dashboard">
+                                <!-- Pies moved here side-by-side -->
+                                <HBox spacing="16.0">
                                     <children>
-                                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                        <VBox fx:id="cardAssessCompletion" spacing="10.0" styleClass="section-card-dashboard" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Label stylesheets="@../../CssFiles/style.css" text="Calendar Streaks">
-                                       <styleClass>
-                                          <String fx:value="label-medium" />
-                                          <String fx:value="label-bold" />
-                                       </styleClass></Label>
-                                                <Pane HBox.hgrow="ALWAYS" />
-                                                <ComboBox fx:id="monthCombo" prefWidth="140" />
-                                                <ComboBox fx:id="yearCombo" prefWidth="100" />
+                                                <Label text="Assessment Completion">
+                                                    <styleClass>
+                                                        <String fx:value="label-medium" />
+                                                        <String fx:value="label-bold" />
+                                                    </styleClass>
+                                                </Label>
+                                                <PieChart fx:id="pieCompletion" prefHeight="280" />
                                             </children>
-                                        </HBox>
-                                        <GridPane fx:id="calendarGrid" hgap="6.0" vgap="6.0">
-                                            <columnConstraints>
-                                                <ColumnConstraints percentWidth="14.28" />
-                                                <ColumnConstraints percentWidth="14.28" />
-                                                <ColumnConstraints percentWidth="14.28" />
-                                                <ColumnConstraints percentWidth="14.28" />
-                                                <ColumnConstraints percentWidth="14.28" />
-                                                <ColumnConstraints percentWidth="14.28" />
-                                                <ColumnConstraints percentWidth="14.28" />
-                                            </columnConstraints>
-                                        </GridPane>
+                                            <padding>
+                                                <Insets bottom="16" left="16" right="16" top="16" />
+                                            </padding>
+                                        </VBox>
+                                        <VBox fx:id="cardGeneralEval" spacing="10.0" styleClass="section-card-dashboard" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <Label text="General Assessment Evaluation">
+                                                    <styleClass>
+                                                        <String fx:value="label-medium" />
+                                                        <String fx:value="label-bold" />
+                                                    </styleClass>
+                                                </Label>
+                                                <PieChart fx:id="pieEvaluation" prefHeight="280" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="16" left="16" right="16" top="16" />
+                                            </padding>
+                                        </VBox>
                                     </children>
-                                    <padding>
-                                        <Insets bottom="16" left="16" right="16" top="16" />
-                                    </padding>
-                                </VBox>
+                                </HBox>
 
                                 <!-- Recent table -->
                                 <VBox fx:id="cardRecent" spacing="10.0" styleClass="section-card-dashboard">
@@ -202,28 +204,55 @@
 
                         <VBox fx:id="rightColumn" prefWidth="360" spacing="16.0">
                             <children>
-                                <VBox fx:id="cardAssessCompletion" spacing="10.0" styleClass="section-card-dashboard">
+                                <!-- Calendar moved to top of right column -->
+                                <VBox fx:id="cardCalendar" spacing="10.0" styleClass="section-card-dashboard">
                                     <children>
-                                        <Label text="Assessment Completion">
-                                 <styleClass>
-                                    <String fx:value="label-medium" />
-                                    <String fx:value="label-bold" />
-                                 </styleClass></Label>
-                                        <PieChart fx:id="pieCompletion" prefHeight="240" />
+                                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                            <children>
+                                                <Label stylesheets="@../../CssFiles/style.css" text="Calendar Streaks">
+                                                    <styleClass>
+                                                        <String fx:value="label-medium" />
+                                                        <String fx:value="label-bold" />
+                                                    </styleClass>
+                                                </Label>
+                                                <Pane HBox.hgrow="ALWAYS" />
+                                                <ComboBox fx:id="monthCombo" prefWidth="140" />
+                                                <ComboBox fx:id="yearCombo" prefWidth="100" />
+                                            </children>
+                                        </HBox>
+                                        <GridPane fx:id="calendarGrid" hgap="6.0" vgap="6.0">
+                                            <columnConstraints>
+                                                <ColumnConstraints percentWidth="14.28" />
+                                                <ColumnConstraints percentWidth="14.28" />
+                                                <ColumnConstraints percentWidth="14.28" />
+                                                <ColumnConstraints percentWidth="14.28" />
+                                                <ColumnConstraints percentWidth="14.28" />
+                                                <ColumnConstraints percentWidth="14.28" />
+                                                <ColumnConstraints percentWidth="14.28" />
+                                            </columnConstraints>
+                                        </GridPane>
                                     </children>
                                     <padding>
                                         <Insets bottom="16" left="16" right="16" top="16" />
                                     </padding>
                                 </VBox>
 
-                                <VBox fx:id="cardGeneralEval" spacing="10.0" styleClass="section-card-dashboard">
+                                <!-- Recent table moved under calendar -->
+                                <VBox fx:id="cardRecent" spacing="10.0" styleClass="section-card-dashboard">
                                     <children>
-                                        <Label stylesheets="@../../CssFiles/style.css" text="General Assessment Evaluation">
-                                 <styleClass>
-                                    <String fx:value="label-medium" />
-                                    <String fx:value="label-bold" />
-                                 </styleClass></Label>
-                                        <PieChart fx:id="pieEvaluation" prefHeight="240" />
+                                        <Label stylesheets="@../../CssFiles/style.css" text="Recent">
+                                            <styleClass>
+                                                <String fx:value="label-medium" />
+                                                <String fx:value="label-bold" />
+                                            </styleClass></Label>
+                                        <TableView fx:id="recentTable" prefHeight="260.0">
+                                            <columns>
+                                                <TableColumn fx:id="colSubject" prefWidth="150" text="Subject" />
+                                                <TableColumn fx:id="colType" prefWidth="180" text="Type" />
+                                                <TableColumn fx:id="colStatus" prefWidth="140" text="Status" />
+                                                <TableColumn fx:id="colResult" prefWidth="140" text="Result" />
+                                            </columns>
+                                        </TableView>
                                     </children>
                                     <padding>
                                         <Insets bottom="16" left="16" right="16" top="16" />

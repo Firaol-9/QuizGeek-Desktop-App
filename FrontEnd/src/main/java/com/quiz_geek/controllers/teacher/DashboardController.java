@@ -1,10 +1,7 @@
 package com.quiz_geek.controllers.teacher;
 
 import com.quiz_geek.services.core.UserService;
-import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
-import javafx.animation.SequentialTransition;
+import javafx.animation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -131,11 +128,14 @@ private void setupMostEnrolled() {
         });
 	}
 
-	private void setupLineChart() {
+    private void setupLineChart() {
 		periodCombo.setItems(FXCollections.observableArrayList("Weekly", "Monthly", "Quarterly"));
 		periodCombo.getSelectionModel().selectFirst();
-		plotLineSeries("Weekly");
-		periodCombo.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> plotLineSeries(n));
+        plotLineSeries("Weekly");
+        periodCombo.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> {
+            plotLineSeries(n);
+            animateLineChange();
+        });
 	}
 
 	private void plotLineSeries(String mode) {
@@ -165,13 +165,28 @@ private void setupMostEnrolled() {
 		lineChart.getData().add(series);
 	}
 
+    private void animateLineChange() {
+        // simple fade-in animation for the newly plotted series
+        if (lineChart.getData().isEmpty()) return;
+        XYChart.Series<String, Number> series = lineChart.getData().get(0);
+        for (XYChart.Data<String, Number> d : series.getData()) {
+            if (d.getNode() != null) {
+                d.getNode().setOpacity(0);
+                FadeTransition ft = new FadeTransition(Duration.millis(250), d.getNode());
+                ft.setFromValue(0);
+                ft.setToValue(1);
+                ft.play();
+            }
+        }
+    }
+
 	private void applyEnterAnimations() {
-		// Animate each direct child of the root container
-		int index = 0;
-		for (javafx.scene.Node node : rootContainer.getChildren()) {
-			playPopIn(node, index * 80);
-			index++;
-		}
+        // Animate each direct child of the root container sequentially
+        int index = 0;
+        for (javafx.scene.Node node : rootContainer.getChildren()) {
+            playPopIn(node, index * 100);
+            index++;
+        }
         // Hover scale for all cards and specifically stat cards
         rootContainer.lookupAll(".card").forEach(this::wireHoverScale);
         wireHoverScale(greetingCard);
