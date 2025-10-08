@@ -1,0 +1,38 @@
+/* Core palette (use literal values; JavaFX CSS doesn't support custom properties) */
+/* Colors */
+.root { }
+
+.card { -fx-background-color: #F5F6FA; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(16,24,40,0.10), 10, 0.0, 0, 4); }
+
+.metric-card:hover {
+    -fx-cursor: hand;
+}
+
+.card-title { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1F2D3D; }
+
+.muted { -fx-text-fill: #475569; }
+
+.greeting-card { -fx-background-color: #F5F6FA; }
+
+/* App background */
+.scroll-pane, .viewport, .vbox { -fx-background-color: white; }
+
+/* Most Enrolled rows */
+.enrolled-row {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 8 10 8;
+}
+.row-title { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1F2D3D; -fx-min-width: 90; }
+
+/* Table styling */
+.table-card .column-header-background { -fx-background-color: transparent; }
+.table-card .column-header .label { -fx-text-fill: #475569; -fx-font-weight: bold; }
+.table-card { -fx-background-color: transparent; -fx-border-color: transparent; }
+.no-grid-lines *.table-row-cell, .no-grid-lines *.table-cell { -fx-border-color: transparent; }
+/* Uniform row backgrounds */
+.table-view .table-row-cell { -fx-background-color: #FFFFFF; }
+.table-view .table-row-cell:odd { -fx-background-color: #FFFFFF; }
+/* Hover highlight via class so we avoid inline styles */
+.table-view .table-row-cell.row-hover { -fx-background-color: rgba(59,130,246,0.06); }
+
+

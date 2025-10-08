@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fx:id="rootScroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../../CssFiles/style.css" vbarPolicy="AS_NEEDED" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quiz_geek.controllers.teacher.DashboardController">
+    <content>
+        <VBox fx:id="rootContainer" fillWidth="true" spacing="32.0" styleClass="createNewQuizContainer" stylesheets="@../../CssFiles/style.css">
+            <padding>
+                <Insets bottom="16" left="16" right="16" top="16" />
+            </padding>
+
+            <!-- Greeting Card (fixed height, not responsive) -->
+            <StackPane fx:id="greetingCard" maxHeight="140.0" minHeight="140.0" prefHeight="140.0" styleClass="greeting-card card">
+            <VBox styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css">
+               <children>
+                       <Label fx:id="greetingText" stylesheets="@../../CssFiles/style.css" text="Hello Diana!">
+                     <styleClass>
+                        <String fx:value="label-veryLarge" />
+                        <String fx:value="label-bold" />
+                     </styleClass>
+                  </Label>
+                       <Label stylesheets="@../../CssFiles/style.css" text="It is good to see you">
+                     <styleClass>
+                        <String fx:value="label-extraLarge" />
+                        <String fx:value="label-bold" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </VBox>
+                <padding>
+                    <Insets top="20.0" />
+                </padding>
+            </StackPane>
+
+            <!-- Metrics Cards -->
+            <GridPane hgap="16.0" vgap="16.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.34" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="NEVER" />
+                </rowConstraints>
+
+                <StackPane fx:id="cardAssessments" styleClass="card metric-card" GridPane.columnIndex="0">
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css">
+                        <Label stylesheets="@../../CssFiles/style.css" text="11">
+                     <styleClass>
+                        <String fx:value="label-secondaryColor" />
+                        <String fx:value="label-veryLarge" />
+                        <String fx:value="label-bold" />
+                     </styleClass></Label>
+                        <Label stylesheets="@../../CssFiles/style.css" text="Assessments &#10;created">
+                     <styleClass>
+                        <String fx:value="label-medium" />
+                        <String fx:value="label-secondaryColor" />
+                        <String fx:value="label-bold" />
+                     </styleClass></Label>
+                    </HBox>
+                </StackPane>
+
+                <StackPane fx:id="cardQuestions" styleClass="card metric-card" GridPane.columnIndex="1">
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css">
+                        <Label stylesheets="@../../CssFiles/style.css" text="120">
+                     <styleClass>
+                        <String fx:value="label-secondaryColor" />
+                        <String fx:value="label-bold" />
+                        <String fx:value="label-veryLarge" />
+                     </styleClass></Label>
+                  <Label stylesheets="@../../CssFiles/style.css" text="Questions&#10;created">
+                     <styleClass>
+                        <String fx:value="label-medium" />
+                        <String fx:value="label-secondaryColor" />
+                        <String fx:value="label-bold" />
+                     </styleClass>
+                  </Label>
+                    </HBox>
+                </StackPane>
+
+                <StackPane fx:id="cardStudents" styleClass="card metric-card" GridPane.columnIndex="2">
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css">
+                        <Label stylesheets="@../../CssFiles/style.css" text="47">
+                     <styleClass>
+                        <String fx:value="label-veryLarge" />
+                        <String fx:value="label-secondaryColor" />
+                        <String fx:value="label-bold" />
+                     </styleClass></Label>
+                  <Label stylesheets="@../../CssFiles/style.css" text="Students&#10;Enrolled">
+                     <styleClass>
+                        <String fx:value="label-medium" />
+                        <String fx:value="label-secondaryColor" />
+                        <String fx:value="label-bold" />
+                     </styleClass>
+                  </Label>
+                    </HBox>
+                </StackPane>
+            </GridPane>
+
+            <!-- Main Content: Charts + Sidebar -->
+            <GridPane hgap="16.0" vgap="16.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="66.0" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="34.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints vgrow="NEVER" />
+                    <RowConstraints vgrow="NEVER" />
+                </rowConstraints>
+            <VBox spacing="16.0" stylesheets="@../../CssFiles/style.css">
+               <children>
+      
+                      <!-- Left area with two charts in a grid (side by side) -->
+                      <GridPane hgap="16.0" vgap="16.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                              <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints vgrow="NEVER" />
+                          </rowConstraints>
+      
+                          <StackPane fx:id="typesCard" styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css" GridPane.columnIndex="0">
+                              <VBox spacing="8.0">
+                                  <Label styleClass="card-title" text="Assessment types" />
+                                  <PieChart fx:id="typesPie" labelsVisible="false" legendVisible="false" prefHeight="240.0" />
+                                  <HBox spacing="10.0">
+                                      <Label style="-fx-background-color: #22C55E; -fx-min-width: 10; -fx-min-height: 10; -fx-background-radius: 50;" text="" />
+                                      <Label styleClass="muted" text="Practice Questions" />
+                                      <Label style="-fx-background-color: #F59E0B; -fx-min-width: 10; -fx-min-height: 10; -fx-background-radius: 50;" text="" />
+                                      <Label styleClass="muted" text="Worksheet" />
+                                      <Label style="-fx-background-color: #EF4444; -fx-min-width: 10; -fx-min-height: 10; -fx-background-radius: 50;" text="" />
+                                      <Label styleClass="muted" text="Exams" />
+                                  </HBox>
+                              </VBox>
+                              <padding>
+                                  <Insets bottom="16" left="16" right="16" top="16" />
+                              </padding>
+                          </StackPane>
+      
+                          <StackPane fx:id="participationCard" styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css" GridPane.columnIndex="1">
+                              <VBox spacing="8.0">
+                                  <Label styleClass="card-title" text="Student's participation" />
+                                  <PieChart fx:id="participationPie" labelsVisible="false" legendVisible="false" prefHeight="240.0" />
+                                  <HBox spacing="10.0">
+                                      <Label style="-fx-background-color: #22C55E; -fx-min-width: 10; -fx-min-height: 10; -fx-background-radius: 50;" text="" />
+                                      <Label styleClass="muted" text="Completed" />
+                                      <Label style="-fx-background-color: #F59E0B; -fx-min-width: 10; -fx-min-height: 10; -fx-background-radius: 50;" text="" />
+                                      <Label styleClass="muted" text="In progress" />
+                                      <Label style="-fx-background-color: #EF4444; -fx-min-width: 10; -fx-min-height: 10; -fx-background-radius: 50;" text="" />
+                                      <Label styleClass="muted" text="Not started" />
+                                  </HBox>
+                              </VBox>
+                              <padding>
+                                  <Insets bottom="16" left="16" right="16" top="16" />
+                              </padding>
+                          </StackPane>
+                      </GridPane>
+                      <!-- Assessment created line chart placed under left column -->
+                      <StackPane fx:id="trendCard" styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css">
+                          <VBox spacing="8.0">
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                  <Label styleClass="card-title" text="Assessment created" />
+                                  <Region HBox.hgrow="ALWAYS" />
+                                  <ComboBox fx:id="periodCombo" promptText="Weekly" />
+                              </HBox>
+                              <LineChart fx:id="lineChart" animated="false" legendVisible="false" minHeight="320.0" prefHeight="320.0" VBox.vgrow="ALWAYS">
+                                  <xAxis>
+                                      <CategoryAxis />
+                                  </xAxis>
+                                  <yAxis>
+                                      <NumberAxis />
+                                  </yAxis>
+                              </LineChart>
+                          </VBox>
+                          <padding>
+                              <Insets bottom="16" left="16" right="16" top="16" />
+                          </padding>
+                      </StackPane>
+               </children>
+            </VBox>
+
+                <!-- Right sidebar -->
+                <VBox maxHeight="1.7976931348623157E308" spacing="16.0" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
+                    <StackPane styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css">
+                        <VBox spacing="8.0">
+                            <Label styleClass="card-title" text="Most Enrolled Assessments" />
+                            <VBox fx:id="mostEnrolledBox" spacing="12.0">
+                                <HBox spacing="16.0" styleClass="enrolled-row">
+                                    <Label styleClass="row-title" text="Maths" />
+                                    <Label styleClass="muted" text="40 Questions" />
+                                    <Label styleClass="muted" text="25 enrolled" />
+                                </HBox>
+                                <HBox spacing="16.0" styleClass="enrolled-row">
+                                    <Label styleClass="row-title" text="Biology" />
+                                    <Label styleClass="muted" text="40 Questions" />
+                                    <Label styleClass="muted" text="25 enrolled" />
+                                </HBox>
+                                <HBox spacing="16.0" styleClass="enrolled-row">
+                                    <Label styleClass="row-title" text="Chemistry" />
+                                    <Label styleClass="muted" text="40 Questions" />
+                                    <Label styleClass="muted" text="25 enrolled" />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                        <padding>
+                            <Insets bottom="16" left="16" right="16" top="16" />
+                        </padding>
+                    </StackPane>
+
+                    <StackPane styleClass="section-card-dashboard" stylesheets="@../../CssFiles/style.css">
+                        <VBox spacing="8.0">
+                            <Label styleClass="card-title" text="Recent" />
+                            <TableView fx:id="recentTable" prefHeight="360.0" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="colSubject" text="Subject" />
+                                    <TableColumn fx:id="colType" text="Type" />
+                                    <TableColumn fx:id="colAccess" text="Accessability" />
+                                    <TableColumn fx:id="colDifficulty" text="Difficulty" />
+                                </columns>
+                            </TableView>
+                        </VBox>
+                        <padding>
+                            <Insets bottom="16" left="16" right="16" top="16" />
+                        </padding>
+                    </StackPane>
+                </VBox>
+            </GridPane>
+        </VBox>
+    </content>
+</ScrollPane>

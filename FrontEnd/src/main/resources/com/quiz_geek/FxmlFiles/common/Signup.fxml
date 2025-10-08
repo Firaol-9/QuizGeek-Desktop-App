@@ -131,7 +131,6 @@
             <String fx:value="section-card" />
             <String fx:value="section-card-secondaryColor" />
             <String fx:value="section-card-largePadding" />
-            <String fx:value="backgroundRadius-extraLarge" />
          </styleClass>
        </VBox>
       <VBox spacing="32.0" HBox.hgrow="ALWAYS">

@@ -76,6 +76,11 @@ public class MainLayoutControllerForStudents implements Initializable {
         SceneManager.switchPage(centerContainer, "ForStudents/Home.fxml");
     }
 
+    @FXML
+    public void showDashboard() throws IOException{
+        SceneManager.switchPage(centerContainer, "ForStudents/StudentDashboard.fxml");
+    }
+
     public void showTakeAssessment(Assessment assessment){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quiz_geek/FxmlFiles/ForStudents/takeAssessment.fxml"));
@@ -133,8 +138,6 @@ public class MainLayoutControllerForStudents implements Initializable {
         scene.setRoot(root);
         stage.setScene(scene);
     }
-
-
 
     public void makeMainLayoutVisible(){
         UIHelpers.nodeVisibility(stackPane, false);

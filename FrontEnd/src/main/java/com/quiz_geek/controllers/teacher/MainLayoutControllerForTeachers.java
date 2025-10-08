@@ -6,7 +6,6 @@ import com.quiz_geek.services.core.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -98,6 +97,7 @@ public class MainLayoutControllerForTeachers implements Initializable {
         scene.setRoot(root);
         scene.setRoot(root);
         stage.setScene(scene);
+        SceneManager.clearAllPage();
     }
 
     public void setUserAvatar(File file) {
@@ -113,5 +113,10 @@ public class MainLayoutControllerForTeachers implements Initializable {
     @FXML
     void showCreateQuestions() throws IOException{
         SceneManager.switchPage(centerContainer, "ForTeachers/CreateQuestions.fxml");
+    }
+
+    @FXML
+    void showDashboard() throws IOException{
+        SceneManager.switchPage(centerContainer,"ForTeachers/Dashboard.fxml");
     }
 }

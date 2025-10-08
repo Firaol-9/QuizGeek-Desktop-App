@@ -34,6 +34,11 @@ public class SceneManager {
         controllers.remove(fxmlFile);
     }
 
+    public static void clearAllPage(){
+        cache.clear();
+        controllers.clear();
+    }
+
     public static void switchPage(Pane container, String fxmlFile) throws IOException {
         Parent newPage = getPage(fxmlFile);
 

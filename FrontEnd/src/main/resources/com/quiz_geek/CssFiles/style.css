@@ -94,11 +94,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);
 }
 
-.backgroundRadius-extraLarge{
-    -fx-background-radius: 60;
-    -fx-border-radius: 60;
-}
-
 .section-card-secondaryColor {
     -fx-background-color: -secondaryColor;
 }
@@ -143,6 +138,21 @@
 .section-card-feedback-red{
     -fx-background-color: #FFE4E1;
     -fx-border-color: red;
+}
+
+.section-card-dashboard{
+    -fx-background-color: -primaryColor;
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 4, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.section-card-dashboard: hover{
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0, 0, 3);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
 }
 
 .separator {
@@ -246,7 +256,7 @@
 .button-secondaryColor{
     -fx-background-color: -secondaryColor;
     -fx-border-color: #305592;
-    -fx-text-fill-white;
+    -fx-text-fill: white;
 }
 
 .button-secondaryColor: hover{
@@ -321,7 +331,7 @@
 /* Sidebar container */
 .sidebar {
     -fx-background-color: -secondaryColor;
-    -fx-background-radius: 0 35 35 0;
+    -fx-background-radius: 0 0 0 0;
 }
 
 /* Sidebar toggle buttons */
