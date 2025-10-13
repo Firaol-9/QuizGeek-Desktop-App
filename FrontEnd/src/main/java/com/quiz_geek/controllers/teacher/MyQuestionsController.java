@@ -35,7 +35,7 @@ public class MyQuestionsController implements Initializable {
         tilePane.setPrefTileHeight(-1);
         tilePane.setMaxWidth(Double.MAX_VALUE);
         tilePane.setMaxHeight(Double.MAX_VALUE);
-        tilePane.setHgap(20);
+        tilePane.setHgap(35);
         tilePane.setVgap(20);
 
         practiceQuestionsTab.setToggleGroup(navGroup);
@@ -52,10 +52,22 @@ public class MyQuestionsController implements Initializable {
 
         QuestionsDifficulty d = QuestionsDifficulty.HARD;
         QuestionsType t = QuestionsType.WORKSHEET;
+        QuestionsType t2 = QuestionsType.EXAM;
+        QuestionsType t3 = QuestionsType.PRACTICEQUESTION;
         QuestionsAccessibility a = QuestionsAccessibility.PUBLIC;
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 3; i++) {
             TeacherAssessmentService.addAssessment("Test-1", "Biology", questions, d, t, a, "", "");
+            TeacherAssessmentService.addAssessment("Test-1", "Maths", questions, d, t, a, "", "");
+            TeacherAssessmentService.addAssessment("Test-1", "Chemistry", questions, d, t, a, "", "");
+            TeacherAssessmentService.addAssessment("Test-1", "History", questions, d, t, a, "", "");
+        }
+
+        for (int i = 0; i < 3; i++) {
+            TeacherAssessmentService.addAssessment("Test-1", "Biology", questions, d, t3, a, "", "");
+            TeacherAssessmentService.addAssessment("Test-1", "Maths", questions, d, t3, a, "", "");
+            TeacherAssessmentService.addAssessment("Test-1", "Chemistry", questions, d, t3, a, "", "");
+            TeacherAssessmentService.addAssessment("Test-1", "History", questions, d, t3, a, "", "");
         }
 
 
@@ -91,7 +103,7 @@ public class MyQuestionsController implements Initializable {
         Label timeLimit = new Label();
         Label numOfQuestions = new Label("" + assessment.getQuestions().size());
         Label accessibility = new Label(assessment.getAccessibility().toString());
-        Button btn = new Button("Start");
+        Button btn = new Button("Edit");
 
         boolean isAssessmentExam = assessment instanceof Exam;
         UIHelpers.nodeVisibility(timeLimit, isAssessmentExam);

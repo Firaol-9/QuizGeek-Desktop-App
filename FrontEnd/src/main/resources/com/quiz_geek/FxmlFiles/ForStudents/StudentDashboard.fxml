@@ -61,13 +61,23 @@
                                                 <String fx:value="label-bold" />
                                              </styleClass>
                                           </Label>
-                                                      <Label fx:id="streakValueLabel" stylesheets="@../../CssFiles/style.css" text="0">
-                                             <styleClass>
-                                                <String fx:value="label-veryLarge" />
-                                                <String fx:value="label-bold" />
-                                                <String fx:value="label-secondaryColor" />
-                                             </styleClass>
-                                          </Label>
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                            <Label fx:id="streakValueLabel" stylesheets="@../../CssFiles/style.css" text="0">
+                                                   <styleClass>
+                                                      <String fx:value="label-veryLarge" />
+                                                      <String fx:value="label-bold" />
+                                                      <String fx:value="label-secondaryColor" />
+                                                   </styleClass>
+                                                </Label>
+                                                <Label layoutX="10.0" layoutY="10.0" stylesheets="@../../CssFiles/style.css" text="🔥">
+                                                   <styleClass>
+                                                      <String fx:value="label-veryLarge" />
+                                                      <String fx:value="label-red" />
+                                                   </styleClass>
+                                                </Label>
+                                             </children>
+                                          </HBox>
                                                   </children>
                                                   <padding>
                                                       <Insets bottom="16" left="16" right="16" top="16" />
@@ -150,28 +160,6 @@
                                     </children>
                                 </HBox>
 
-                                <!-- Recent table -->
-                                <VBox fx:id="cardRecent" spacing="10.0" styleClass="section-card-dashboard">
-                                    <children>
-                                        <Label stylesheets="@../../CssFiles/style.css" text="Recent">
-                                 <styleClass>
-                                    <String fx:value="label-medium" />
-                                    <String fx:value="label-bold" />
-                                 </styleClass></Label>
-                                        <TableView fx:id="recentTable" prefHeight="260.0">
-                                            <columns>
-                                                <TableColumn fx:id="colSubject" prefWidth="150" text="Subject" />
-                                                <TableColumn fx:id="colType" prefWidth="180" text="Type" />
-                                                <TableColumn fx:id="colStatus" prefWidth="140" text="Status" />
-                                                <TableColumn fx:id="colResult" prefWidth="140" text="Result" />
-                                            </columns>
-                                        </TableView>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="16" left="16" right="16" top="16" />
-                                    </padding>
-                                </VBox>
-
                                 <!-- Participation line chart -->
                                 <VBox fx:id="cardParticipation" spacing="10.0" styleClass="section-card-dashboard">
                                     <children>
@@ -202,7 +190,7 @@
                             </children>
                         </VBox>
 
-                        <VBox fx:id="rightColumn" prefWidth="360" spacing="16.0">
+                        <VBox fx:id="rightColumn" prefWidth="650.0" spacing="16.0">
                             <children>
                                 <!-- Calendar moved to top of right column -->
                                 <VBox fx:id="cardCalendar" spacing="10.0" styleClass="section-card-dashboard">

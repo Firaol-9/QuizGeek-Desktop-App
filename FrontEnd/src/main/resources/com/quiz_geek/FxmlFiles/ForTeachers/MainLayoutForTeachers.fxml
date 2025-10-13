@@ -15,7 +15,7 @@
     <left>
         <VBox fx:id="leftSideBar" alignment="TOP_LEFT" prefWidth="255.0" spacing="60.0" styleClass="sidebar" stylesheets="@../../CssFiles/style.css">
             <children>
-                <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: white;" text="QUIZAPP">
+                <Label style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: white;" text="QuizGeek">
                     <font>
                         <Font size="24.0" />
                     </font>

@@ -81,6 +81,14 @@ public class MainLayoutControllerForStudents implements Initializable {
         SceneManager.switchPage(centerContainer, "ForStudents/StudentDashboard.fxml");
     }
 
+    @FXML
+    public void showMyResults() throws IOException{
+        SceneManager.switchPage(centerContainer, "ForStudents/MyResult.fxml");
+        MyResultController myResultController = (MyResultController) SceneManager.getController("ForStudents/MyResult.fxml");
+        myResultController.setParentController(this);
+
+    }
+
     public void showTakeAssessment(Assessment assessment){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/quiz_geek/FxmlFiles/ForStudents/takeAssessment.fxml"));

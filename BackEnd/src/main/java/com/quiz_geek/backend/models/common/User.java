@@ -1,6 +1,5 @@
-package com.quiz_geek.backend.models;
+package com.quiz_geek.backend.models.common;
 
-import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

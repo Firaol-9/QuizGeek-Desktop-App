@@ -45,6 +45,7 @@ public abstract class AssessmentService {
     public List<Assessment> getExams(){
         List<Assessment> assessments = new ArrayList<>();
         for( Assessment assessment : getAssessmentsList().values()){
+            System.out.println(assessment instanceof Exam);
             if (assessment instanceof Exam){
                 assessments.add(assessment);
             }
@@ -55,6 +56,7 @@ public abstract class AssessmentService {
     public List<Assessment> getPracticeQuestions(){
         List<Assessment> assessments = new ArrayList<>();
         for( Assessment assessment : getAssessmentsList().values()){
+            System.out.println(assessment instanceof PracticeQuestion);
             if (assessment instanceof PracticeQuestion){
                 assessments.add(assessment);
             }

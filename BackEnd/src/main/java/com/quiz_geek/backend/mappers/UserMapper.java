@@ -2,7 +2,7 @@ package com.quiz_geek.backend.mappers;
 
 import com.quiz_geek.backend.payload.requests.SignupRequest;
 import com.quiz_geek.backend.payload.responses.UserResponse;
-import com.quiz_geek.backend.models.User;
+import com.quiz_geek.backend.models.common.User;
 import org.springframework.stereotype.Component;
 
 @Component

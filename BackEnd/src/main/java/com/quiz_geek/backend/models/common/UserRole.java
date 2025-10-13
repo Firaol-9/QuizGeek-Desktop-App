@@ -1,4 +1,4 @@
-package com.quiz_geek.backend.models;
+package com.quiz_geek.backend.models.common;
 
 public enum UserRole {
     STUDENT("Student"),

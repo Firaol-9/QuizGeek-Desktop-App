@@ -3,11 +3,10 @@ package com.quiz_geek.backend.services;
 import com.quiz_geek.backend.mappers.UserMapper;
 import com.quiz_geek.backend.payload.requests.LoginRequest;
 import com.quiz_geek.backend.payload.requests.SignupRequest;
-import com.quiz_geek.backend.models.User;
+import com.quiz_geek.backend.models.common.User;
 import com.quiz_geek.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

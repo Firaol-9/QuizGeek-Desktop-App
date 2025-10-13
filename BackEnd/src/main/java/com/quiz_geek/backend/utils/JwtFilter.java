@@ -38,12 +38,12 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 // validate token and extract claims
                 Claims claims = jwtUtil.validateToken(token);
-                String email = claims.getSubject();
+                String userId = claims.getSubject();
 
                 // check if user not already authenticated
-                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     // load user details from DB
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
 
                     // optional: verify token against user details (for expiration, etc.)
                     if (!jwtUtil.isTokenExpired(token)) {

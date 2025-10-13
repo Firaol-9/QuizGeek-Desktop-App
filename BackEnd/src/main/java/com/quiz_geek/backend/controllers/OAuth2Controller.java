@@ -1,8 +1,8 @@
 package com.quiz_geek.backend.controllers;
 
 import com.quiz_geek.backend.mappers.UserMapper;
-import com.quiz_geek.backend.models.User;
-import com.quiz_geek.backend.models.UserRole;
+import com.quiz_geek.backend.models.common.User;
+import com.quiz_geek.backend.models.common.UserRole;
 import com.quiz_geek.backend.payload.responses.AuthResponse;
 import com.quiz_geek.backend.payload.responses.UserResponse;
 import com.quiz_geek.backend.services.UserService;

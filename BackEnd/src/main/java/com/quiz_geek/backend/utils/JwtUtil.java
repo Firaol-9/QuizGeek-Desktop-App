@@ -15,9 +15,9 @@ public class JwtUtil {
     // Generate a secure 256-bit key for HS256
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public String generateToken(String email, String role) {
+    public String generateToken(String userId, String role) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(userId)
                 .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))

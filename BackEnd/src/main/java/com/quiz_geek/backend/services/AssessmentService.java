@@ -1,7 +1,9 @@
 package com.quiz_geek.backend.services;
 
-import com.quiz_geek.backend.models.Assessment;
-import com.quiz_geek.backend.models.QuestionsAccessibility;
+import com.quiz_geek.backend.mappers.AssessmentMapper;
+import com.quiz_geek.backend.models.common.Assessment;
+import com.quiz_geek.backend.models.common.AssessmentAccessibility;
+import com.quiz_geek.backend.payload.requests.AssessmentRequest;
 import com.quiz_geek.backend.repositories.AssessmentRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,16 @@ public class AssessmentService {
         this.assessmentRepository = assessmentRepository;
     }
 
-    public Assessment createAssessment(Assessment assessment) {
-        if (assessment.getAccessibility() == QuestionsAccessibility.PRIVATE) {
+    public Assessment createAssessment(AssessmentRequest assessmentRequest, String userId) {
+
+        if (assessmentRequest.getAccessibility().getAssessmentAccessibility() == AssessmentAccessibility.PRIVATE) {
             // hash the password before saving
-            assessment.setPassword(passwordEncoder.encode(assessment.getPassword()));
+            assessmentRequest.getAccessibility().setPassword(passwordEncoder.encode(assessmentRequest.getAccessibility().getPassword()));
         } else {
             // clear password if not private
-            assessment.setPassword(null);
+            assessmentRequest.getAccessibility().setPassword(null);
         }
+        Assessment assessment = AssessmentMapper.toEntity(assessmentRequest, userId);
         return assessmentRepository.save(assessment);
     }
 

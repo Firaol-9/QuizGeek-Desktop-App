@@ -127,10 +127,10 @@ public class StudentDashboardController {
 
         ObservableList<RecentAssessment> items = FXCollections.observableArrayList(
                 new RecentAssessment("Maths", "Exam", "Pending", "--"),
-                new RecentAssessment("Maths", "Practice question", "Completed", "23/30"),
-                new RecentAssessment("Maths", "Worksheet", "Completed", "17/20"),
+                new RecentAssessment("Biology", "Practice question", "Completed", "23/30"),
+                new RecentAssessment("Physics", "Worksheet", "Completed", "17/20"),
                 new RecentAssessment("Maths", "Exam", "Completed", "10/10"),
-                new RecentAssessment("Maths", "Practice question", "Completed", "13/15")
+                new RecentAssessment("English", "Practice question", "Completed", "13/15")
         );
         recentTable.setItems(items);
         recentTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);

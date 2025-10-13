@@ -1,7 +1,7 @@
 package com.quiz_geek.backend.controllers;
 
 import com.quiz_geek.backend.exceptions.UserNotFoundException;
-import com.quiz_geek.backend.models.User;
+import com.quiz_geek.backend.models.common.User;
 import com.quiz_geek.backend.payload.responses.UserResponse;
 import com.quiz_geek.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

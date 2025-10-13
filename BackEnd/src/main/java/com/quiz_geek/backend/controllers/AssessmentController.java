@@ -1,8 +1,11 @@
 package com.quiz_geek.backend.controllers;
 
-import com.quiz_geek.backend.models.Assessment;
+import com.quiz_geek.backend.models.common.Assessment;
+import com.quiz_geek.backend.models.common.CustomUserDetails;
+import com.quiz_geek.backend.payload.requests.AssessmentRequest;
 import com.quiz_geek.backend.services.AssessmentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +21,10 @@ public class AssessmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Assessment> createAssessment(@RequestBody Assessment assessment) {
-        Assessment saved = assessmentService.createAssessment(assessment);
+    public ResponseEntity<Assessment> createAssessment(@RequestBody AssessmentRequest request, Authentication authentication) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        String userId = userDetails.getUsername();
+        Assessment saved = assessmentService.createAssessment(request, userId);
         return ResponseEntity.ok(saved);
     }
 

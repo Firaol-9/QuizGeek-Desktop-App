@@ -44,7 +44,7 @@ public class HomeController implements Initializable {
         tilePane.setPrefTileHeight(-1);
         tilePane.setMaxWidth(Double.MAX_VALUE);
         tilePane.setMaxHeight(Double.MAX_VALUE);
-        tilePane.setHgap(20);
+        tilePane.setHgap(35);
         tilePane.setVgap(20);
 
         StudentAssessmentService.addAssessments();

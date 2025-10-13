@@ -1,7 +1,7 @@
 package com.quiz_geek.backend.services;
 
-import com.quiz_geek.backend.models.CustomUserDetails;
-import com.quiz_geek.backend.models.User;
+import com.quiz_geek.backend.models.common.CustomUserDetails;
+import com.quiz_geek.backend.models.common.User;
 import com.quiz_geek.backend.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,9 +18,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user =  userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        User user =  userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: "));
         return new CustomUserDetails(user);
     }
 }

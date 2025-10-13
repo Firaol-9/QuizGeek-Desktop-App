@@ -1,9 +1,9 @@
-package com.quiz_geek.backend.models;
+package com.quiz_geek.backend.controllers;
 
 import com.quiz_geek.backend.mappers.UserMapper;
+import com.quiz_geek.backend.models.common.User;
 import com.quiz_geek.backend.payload.requests.LoginRequest;
 import com.quiz_geek.backend.payload.responses.AuthResponse;
-import com.quiz_geek.backend.payload.responses.MessageResponse;
 import com.quiz_geek.backend.payload.requests.SignupRequest;
 import com.quiz_geek.backend.payload.responses.UserResponse;
 import com.quiz_geek.backend.services.UserService;
@@ -42,7 +42,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> loginUser(@RequestBody LoginRequest loginRequest){
         User user = userService.authenticateUser(loginRequest);
         UserResponse response = userMapper.toResponse(user, "successful");
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+        String token = jwtUtil.generateToken(user.getId(), user.getRole().name());
         AuthResponse authResponse = new AuthResponse(token, response);
         return ResponseEntity.ok(authResponse);
     }

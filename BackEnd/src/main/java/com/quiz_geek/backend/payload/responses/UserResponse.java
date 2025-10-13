@@ -1,6 +1,6 @@
 package com.quiz_geek.backend.payload.responses;
 
-import com.quiz_geek.backend.models.UserRole;
+import com.quiz_geek.backend.models.common.UserRole;
 
 public class UserResponse {
     private String id;

@@ -1,4 +1,4 @@
-package com.quiz_geek.backend.models;
+package com.quiz_geek.backend.models.common;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return user.getId();
     }
 
     @Override

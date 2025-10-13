@@ -37,6 +37,10 @@
     -fx-text-fill: black;
 }
 
+.label-red{
+    -fx-text-fill: red;
+}
+
 .label-accentColor {
     -fx-text-fill: -accentColor;
 }
@@ -219,6 +223,18 @@
     -fx-background-color: -tealDarker;
     -fx-scale-x: 0.98;
     -fx-scale-y: 0.98;
+}
+
+.button-small{
+    -fx-background-color: -accentColor;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-font-size: 14px;
+    -fx-background-radius: 4;
+    -fx-padding: 2 8;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,150,136,0.25), 4, 0, 0, 2);
 }
 
 .button-questionNumber{
