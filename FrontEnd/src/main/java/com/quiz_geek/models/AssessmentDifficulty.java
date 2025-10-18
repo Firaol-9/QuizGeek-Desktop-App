@@ -1,13 +1,13 @@
 package com.quiz_geek.models;
 
-public enum QuestionsDifficulty {
+public enum AssessmentDifficulty {
     EASY("Easy"),
     MEDIUM("Medium"),
     HARD("Hard");
 
     private final String label;
 
-    QuestionsDifficulty(String label){
+    AssessmentDifficulty(String label){
         this.label = label;
     }
 

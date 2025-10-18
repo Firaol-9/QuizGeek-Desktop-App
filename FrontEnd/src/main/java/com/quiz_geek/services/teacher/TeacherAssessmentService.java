@@ -21,20 +21,20 @@ public class TeacherAssessmentService extends AssessmentService{
     protected Map<String,Assessment> getAssessmentsList(){ return assessmentsList; }
 
     public static void addAssessment(String title, String subjectName, List<Question> questionsList,
-                                     QuestionsDifficulty difficulty, QuestionsType type, QuestionsAccessibility accessibility,
+                                     AssessmentDifficulty difficulty, AssessmentType type, AssessmentAccessibility accessibility,
                                      String timeLimitStr, String password) {
         validateAssessmentData(title, subjectName, questionsList, difficulty, type, accessibility, timeLimitStr, password);
 
         int timeLimit = 0;
-        if ( type == QuestionsType.EXAM) timeLimit =  Integer.parseInt(timeLimitStr);
+        if ( type == AssessmentType.EXAM) timeLimit =  Integer.parseInt(timeLimitStr);
 
-        if (type == QuestionsType.EXAM) {
+        if (type == AssessmentType.EXAM) {
             Exam exam = new Exam (title, subjectName, questionsList, difficulty, accessibility, timeLimit, password);
             assessmentsList.put(exam.getId(), exam);
-        }else if (type == QuestionsType.PRACTICEQUESTION) {
+        }else if (type == AssessmentType.PRACTICEQUESTION) {
             PracticeQuestion practiceQuestion = new PracticeQuestion(title, subjectName, questionsList, difficulty, accessibility, password);
             assessmentsList.put(practiceQuestion.getId(), practiceQuestion);
-        } else if (type == QuestionsType.WORKSHEET){
+        } else if (type == AssessmentType.WORKSHEET){
             Worksheet worksheet = new Worksheet(title, subjectName, questionsList, difficulty, accessibility, password);
             assessmentsList.put(worksheet.getId(), worksheet);
         }

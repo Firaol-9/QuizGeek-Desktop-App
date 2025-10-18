@@ -21,7 +21,7 @@ public class AssessmentResultService {
     public void addAssessmentResultList(){
         for (Assessment assessment: StudentAssessmentService.getInstance().getAssessmentsList().values()) {
             int totalQuestions = assessment.getNumberOfQuestions();
-            int correctQuestions = random.nextInt(totalQuestions);
+            int correctQuestions = random.nextInt(0, totalQuestions);
             AssessmentResult assessmentResult = new AssessmentResult(
                     assessment.getSubject(),
                     assessment.getAssessmentTitle(),

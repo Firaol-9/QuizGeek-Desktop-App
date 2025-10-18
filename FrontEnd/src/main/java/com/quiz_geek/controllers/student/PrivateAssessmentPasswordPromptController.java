@@ -1,6 +1,6 @@
 package com.quiz_geek.controllers.student;
 
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +22,7 @@ public class PrivateAssessmentPasswordPromptController {
 
     @FXML
     void initialize(){
-        UIHelpers.nodeVisibility(errorLabelContainer, false);
+        Helpers.nodeVisibility(errorLabelContainer, false);
     }
 
     public void setDetails(String assessmentName, String correctPassword, Runnable onSuccess) {
@@ -41,7 +41,7 @@ public class PrivateAssessmentPasswordPromptController {
             if (onSuccess != null) onSuccess.run();
         } else {
             errorLabel.setText("Incorrect password. Try again.");
-            UIHelpers.nodeVisibility(errorLabelContainer, true);
+            Helpers.nodeVisibility(errorLabelContainer, true);
         }
     }
 

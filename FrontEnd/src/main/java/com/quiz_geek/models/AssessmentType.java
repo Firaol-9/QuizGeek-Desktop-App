@@ -1,13 +1,13 @@
 package com.quiz_geek.models;
 
-public enum QuestionsType {
+public enum AssessmentType {
     EXAM("Exam"),
     PRACTICEQUESTION("PracticeQuestion"),
     WORKSHEET("Worksheet");
 
     String label;
 
-    QuestionsType (String label){
+    AssessmentType(String label){
         this.label = label;
     }
 

@@ -5,12 +5,12 @@ import java.util.List;
 public class Exam extends Assessment{
     int timeLimitInMinutes;
 
-    public Exam( String assessmentTitle, String subject, List<Question> questionsList, QuestionsDifficulty difficulty, QuestionsAccessibility accessibility, int timeLimitInMinutes ){
+    public Exam(String assessmentTitle, String subject, List<Question> questionsList, AssessmentDifficulty difficulty, AssessmentAccessibility accessibility, int timeLimitInMinutes ){
         super(assessmentTitle, subject, questionsList, difficulty, accessibility);
         this.timeLimitInMinutes = timeLimitInMinutes;
     }
 
-    public Exam( String assessmentTitle, String subject, List<Question> questionsList, QuestionsDifficulty difficulty, QuestionsAccessibility accessibility, int timeLimitInMinutes, String password ){
+    public Exam(String assessmentTitle, String subject, List<Question> questionsList, AssessmentDifficulty difficulty, AssessmentAccessibility accessibility, int timeLimitInMinutes, String password ){
         super(assessmentTitle, subject, questionsList, difficulty, accessibility, password);
         this.timeLimitInMinutes = timeLimitInMinutes;
     }

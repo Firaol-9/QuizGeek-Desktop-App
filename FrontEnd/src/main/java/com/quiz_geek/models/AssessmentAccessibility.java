@@ -1,12 +1,12 @@
 package com.quiz_geek.models;
 
-public enum QuestionsAccessibility {
+public enum AssessmentAccessibility {
     PRIVATE("Private"),
     PUBLIC("Public");
 
     private final String label;
 
-    QuestionsAccessibility(String label){
+    AssessmentAccessibility(String label){
         this.label = label;
     }
 

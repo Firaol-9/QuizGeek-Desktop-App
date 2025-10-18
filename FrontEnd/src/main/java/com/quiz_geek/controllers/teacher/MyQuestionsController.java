@@ -3,7 +3,7 @@ package com.quiz_geek.controllers.teacher;
 import com.quiz_geek.models.*;
 import com.quiz_geek.utils.Constants;
 import com.quiz_geek.utils.SvgLoader;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 import com.quiz_geek.services.teacher.TeacherAssessmentService;
 
 import javafx.fxml.FXML;
@@ -50,11 +50,11 @@ public class MyQuestionsController implements Initializable {
         List<Question> questions = new ArrayList<>();
         questions.add(new Question("What?", options, "a"));
 
-        QuestionsDifficulty d = QuestionsDifficulty.HARD;
-        QuestionsType t = QuestionsType.WORKSHEET;
-        QuestionsType t2 = QuestionsType.EXAM;
-        QuestionsType t3 = QuestionsType.PRACTICEQUESTION;
-        QuestionsAccessibility a = QuestionsAccessibility.PUBLIC;
+        AssessmentDifficulty d = AssessmentDifficulty.HARD;
+        AssessmentType t = AssessmentType.WORKSHEET;
+        AssessmentType t2 = AssessmentType.EXAM;
+        AssessmentType t3 = AssessmentType.PRACTICEQUESTION;
+        AssessmentAccessibility a = AssessmentAccessibility.PUBLIC;
 
         for (int i = 0; i < 3; i++) {
             TeacherAssessmentService.addAssessment("Test-1", "Biology", questions, d, t, a, "", "");
@@ -106,7 +106,7 @@ public class MyQuestionsController implements Initializable {
         Button btn = new Button("Edit");
 
         boolean isAssessmentExam = assessment instanceof Exam;
-        UIHelpers.nodeVisibility(timeLimit, isAssessmentExam);
+        Helpers.nodeVisibility(timeLimit, isAssessmentExam);
 
         card.setSpacing(10);
         card.setPadding(new Insets(cardPadding, cardPadding, cardPadding,cardPadding));

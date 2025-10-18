@@ -97,10 +97,10 @@ public class StudentAssessmentService extends AssessmentService {
 // ---------- CREATE ASSESSMENTS ----------
 
 // Difficulties and accessibilities
-        QuestionsDifficulty hard = QuestionsDifficulty.HARD;
-        QuestionsDifficulty medium = QuestionsDifficulty.MEDIUM;
-        QuestionsAccessibility publicAccess = QuestionsAccessibility.PUBLIC;
-        QuestionsAccessibility privateAccess = QuestionsAccessibility.PRIVATE;
+        AssessmentDifficulty hard = AssessmentDifficulty.HARD;
+        AssessmentDifficulty medium = AssessmentDifficulty.MEDIUM;
+        AssessmentAccessibility publicAccess = AssessmentAccessibility.PUBLIC;
+        AssessmentAccessibility privateAccess = AssessmentAccessibility.PRIVATE;
 
 // --- BIOLOGY ASSESSMENTS ---
         for (int i = 1; i <= 3; i++) {

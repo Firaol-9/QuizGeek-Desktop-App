@@ -14,7 +14,7 @@ public abstract class AssessmentService {
     protected AssessmentService(){}
 
     protected static void validateAssessmentData(String title, String subjectName, List<Question> questionsList,
-                                                 QuestionsDifficulty difficulty, QuestionsType type, QuestionsAccessibility accessibility,
+                                                 AssessmentDifficulty difficulty, AssessmentType type, AssessmentAccessibility accessibility,
                                                  String timeLimitStr, String password){
 
         if(title == null || title.isBlank()){
@@ -27,11 +27,11 @@ public abstract class AssessmentService {
             throw new InvalidAssessmentException("No valid questions provided.");
         }
 
-        if(type == QuestionsType.EXAM && (timeLimitStr == null || timeLimitStr.isBlank())){
+        if(type == AssessmentType.EXAM && (timeLimitStr == null || timeLimitStr.isBlank())){
             throw new InvalidAssessmentException("Exam must have time Limit");
         }
 
-        if(accessibility == QuestionsAccessibility.PRIVATE && (password == null || password.isBlank())){
+        if(accessibility == AssessmentAccessibility.PRIVATE && (password == null || password.isBlank())){
             throw new InvalidAssessmentException("Private assessments must have password.");
         }
     }
@@ -74,7 +74,7 @@ public abstract class AssessmentService {
         return assessments;
     }
 
-    public List<Assessment> getAssessmentsByDifficulty(QuestionsDifficulty difficulty){
+    public List<Assessment> getAssessmentsByDifficulty(AssessmentDifficulty difficulty){
         List<Assessment> assessments = new ArrayList<>();
         for( Assessment assessment : getAssessmentsList().values()){
             if (assessment.getDifficulty() == difficulty){
@@ -84,7 +84,7 @@ public abstract class AssessmentService {
         return assessments;
     }
 
-    public List<Assessment> getAssessmentsByAccessibility(QuestionsAccessibility accessibility){
+    public List<Assessment> getAssessmentsByAccessibility(AssessmentAccessibility accessibility){
         List<Assessment> assessments = new ArrayList<>();
         for( Assessment assessment : getAssessmentsList().values()){
             if (assessment.getAccessibility() == accessibility){

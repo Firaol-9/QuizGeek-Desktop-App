@@ -8,7 +8,7 @@ import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
 import com.quiz_geek.utils.GoogleAuthHelper;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -41,9 +39,9 @@ public class LoginPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UIHelpers.nodeVisibility(emailErrorVbox, false);
-        UIHelpers.nodeVisibility(incorrectPasswordErrorVbox, false);
-        UIHelpers.nodeVisibility(errorBox, false);
+        Helpers.nodeVisibility(emailErrorVbox, false);
+        Helpers.nodeVisibility(incorrectPasswordErrorVbox, false);
+        Helpers.nodeVisibility(errorBox, false);
     }
 
     @FXML
@@ -61,9 +59,9 @@ public class LoginPageController implements Initializable {
 
     @FXML
     void linkToMainPage(ActionEvent event) {
-        UIHelpers.nodeVisibility(emailErrorVbox, false);
-        UIHelpers.nodeVisibility(incorrectPasswordErrorVbox, false);
-        UIHelpers.nodeVisibility(errorBox, false);
+        Helpers.nodeVisibility(emailErrorVbox, false);
+        Helpers.nodeVisibility(incorrectPasswordErrorVbox, false);
+        Helpers.nodeVisibility(errorBox, false);
 
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
@@ -95,7 +93,7 @@ public class LoginPageController implements Initializable {
                 stage.setMaximized(true);
                 stage.show();
             } catch (IOException ex) {
-                UIHelpers.nodeVisibility(errorBox, true);
+                Helpers.nodeVisibility(errorBox, true);
                 showError(errorBox, "Failed to load main page.");
                 ex.printStackTrace();
             }
@@ -104,12 +102,12 @@ public class LoginPageController implements Initializable {
         task.setOnFailed(e -> {
             Throwable ex = task.getException();
             if (ex instanceof InvalidInputException) {
-                UIHelpers.nodeVisibility(errorBox, true);
+                Helpers.nodeVisibility(errorBox, true);
                 showError(errorBox, ex.getMessage());
             } else if (ex instanceof IncorrectPasswordOrEmailException) {
                 showError(incorrectPasswordErrorVbox, ex.getMessage());
             } else {
-                UIHelpers.nodeVisibility(errorBox, true);
+                Helpers.nodeVisibility(errorBox, true);
                 showError(errorBox, "Something went wrong: " + ex.getMessage());
             }
         });
@@ -121,7 +119,7 @@ public class LoginPageController implements Initializable {
     private void showError(VBox vbox, String error){
         vbox.getChildren().clear();
         vbox.getChildren().clear();
-        UIHelpers.nodeVisibility(vbox, true);
+        Helpers.nodeVisibility(vbox, true);
         Label errorLabel = new Label(error);
         errorLabel.getStyleClass().addAll("label-errorRed", "label-verySmall");
         vbox.getChildren().add(errorLabel);
@@ -129,9 +127,9 @@ public class LoginPageController implements Initializable {
 
     @FXML
     public void loginWithGoogle(ActionEvent event) {
-        UIHelpers.nodeVisibility(emailErrorVbox, false);
-        UIHelpers.nodeVisibility(incorrectPasswordErrorVbox, false);
-        UIHelpers.nodeVisibility(errorBox, false);
+        Helpers.nodeVisibility(emailErrorVbox, false);
+        Helpers.nodeVisibility(incorrectPasswordErrorVbox, false);
+        Helpers.nodeVisibility(errorBox, false);
 
         // Use CompletableFuture to handle async Google authentication
         GoogleAuthHelper.simulateGoogleLoginAsync()
@@ -169,7 +167,7 @@ public class LoginPageController implements Initializable {
                         stage.setMaximized(true);
                         stage.show();
                     } catch (IOException ex) {
-                        UIHelpers.nodeVisibility(errorBox, true);
+                        Helpers.nodeVisibility(errorBox, true);
                         showError(errorBox, "Failed to load main page.");
                     }
                 });
@@ -177,7 +175,7 @@ public class LoginPageController implements Initializable {
             .exceptionally(throwable -> {
                 // Handle errors on FX thread
                 javafx.application.Platform.runLater(() -> {
-                    UIHelpers.nodeVisibility(errorBox, true);
+                    Helpers.nodeVisibility(errorBox, true);
                     showError(errorBox, "Google login failed: " + throwable.getMessage());
                 });
                 return null;

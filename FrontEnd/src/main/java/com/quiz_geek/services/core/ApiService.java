@@ -1,12 +1,16 @@
 package com.quiz_geek.services.core;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.quiz_geek.controllers.common.SessionManager;
 import com.quiz_geek.exceptions.EmailAlreadyExistsException;
 import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
 import com.quiz_geek.models.UserRole;
-import com.quiz_geek.payloads.LoginResponseDTO;
+import com.quiz_geek.payloads.request.AssessmentRequest;
+import com.quiz_geek.payloads.response.AssessmentResponse;
+import com.quiz_geek.payloads.response.LoginResponseDTO;
 import com.quiz_geek.payloads.UserDTO;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -15,22 +19,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ApiService {
 
-    private static final String BASE_URL = "http://localhost:8080/api/auth";
+    private static final String BASE_URL = "http://localhost:8080/api";
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static UserDTO login(String email, String password) throws Exception {
         String json = String.format("{\"email\":\"%s\",\"password\":\"%s\"}", email, password);
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL + "/login"))
+                .uri(URI.create(BASE_URL + "/auth/login"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
 
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.statusCode());
 
         if (response.statusCode() == 200) {
             LoginResponseDTO loginResponse = mapper.readValue(response.body(), LoginResponseDTO.class);
@@ -51,7 +53,7 @@ public class ApiService {
         );
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL + "/signup"))
+                .uri(URI.create(BASE_URL + "/auth/signup"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
@@ -75,15 +77,13 @@ public class ApiService {
         );
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL + "/google"))
+                .uri(URI.create(BASE_URL + "/auth/google"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
 
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println("Google login status: " + response.statusCode());
 
         if (response.statusCode() == 200) {
             LoginResponseDTO loginResponse = mapper.readValue(response.body(), LoginResponseDTO.class);
@@ -94,9 +94,33 @@ public class ApiService {
         }
     }
 
+    public static AssessmentResponse createAssessment(AssessmentRequest assessmentRequest) throws IOException, InterruptedException {
+        String json = "" ;
+        try{
+            json = mapper.writeValueAsString(assessmentRequest);
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
+        System.out.println(json);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/assessments"))
+                .header("Authorization", "Bearer " + SessionManager.getToken())
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .build();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println( response.statusCode());
+        if ( response.statusCode() == 200){
+            return mapper.readValue(response.body(), AssessmentResponse.class);
+        } else{
+            throw new RuntimeException("Error while creating exam");
+        }
+    }
+
     public static UserDTO getCurrentUser() throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL + "/me"))
+                .uri(URI.create(BASE_URL + "auth/me"))
                 .header("Authorization", "Bearer " + SessionManager.getToken())
                 .GET()
                 .build();

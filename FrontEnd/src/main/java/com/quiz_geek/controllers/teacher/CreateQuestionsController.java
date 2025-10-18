@@ -1,16 +1,17 @@
 package com.quiz_geek.controllers.teacher;
 
+import com.kitfox.svg.A;
 import com.quiz_geek.controllers.common.SceneManager;
 import com.quiz_geek.exceptions.InvalidAssessmentException;
 import com.quiz_geek.exceptions.InvalidQuestionException;
-import com.quiz_geek.models.Question;
-import com.quiz_geek.models.QuestionsAccessibility;
-import com.quiz_geek.models.QuestionsDifficulty;
-import com.quiz_geek.models.QuestionsType;
+import com.quiz_geek.models.*;
+import com.quiz_geek.payloads.request.AssessmentRequest;
+import com.quiz_geek.payloads.response.AssessmentResponse;
+import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.teacher.TeacherAssessmentService;
 import com.quiz_geek.services.core.TextFieldUtils;
 import com.quiz_geek.utils.SvgLoader;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +39,9 @@ public class CreateQuestionsController implements Initializable {
     @FXML private TextField quizTitleTextField;
     @FXML private TextField subjectTextField;
 
-    @FXML private ChoiceBox<QuestionsDifficulty> difficultyChoiceBox;
-    @FXML private ChoiceBox<QuestionsAccessibility> accessibilityChoiceBoxChoiceBox;
-    @FXML private ChoiceBox<QuestionsType> questionsTypeChoiceBox;
+    @FXML private ChoiceBox<AssessmentDifficulty> difficultyChoiceBox;
+    @FXML private ChoiceBox<AssessmentAccessibility> accessibilityChoiceBoxChoiceBox;
+    @FXML private ChoiceBox<AssessmentType> questionsTypeChoiceBox;
 
     @FXML private HBox timeLimitAndPasswordContainer;
     @FXML private VBox timeLimitContainer;
@@ -56,9 +58,9 @@ public class CreateQuestionsController implements Initializable {
 
     boolean isExamSelected = true, isPrivateSelected = false;
 
-    QuestionsDifficulty defaultDifficulty = QuestionsDifficulty.MEDIUM;
-    QuestionsType defaultType = QuestionsType.EXAM;
-    QuestionsAccessibility defaultAccessibility = QuestionsAccessibility.PUBLIC;
+    AssessmentDifficulty defaultDifficulty = AssessmentDifficulty.MEDIUM;
+    AssessmentType defaultType = AssessmentType.EXAM;
+    AssessmentAccessibility defaultAccessibility = AssessmentAccessibility.PUBLIC;
 
 
     @Override
@@ -69,43 +71,43 @@ public class CreateQuestionsController implements Initializable {
         addQuestionButton.setOnAction(actionEvent -> questionsContainer.getChildren().add(addQuestionContainer()));
 
         //setting up the difficulty choiceBox
-        difficultyChoiceBox.getItems().addAll(QuestionsDifficulty.values());
+        difficultyChoiceBox.getItems().addAll(AssessmentDifficulty.values());
         difficultyChoiceBox.setValue(defaultDifficulty);
         difficultyChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {});
 
         //setting up the privacy choiceBox
-        accessibilityChoiceBoxChoiceBox.getItems().addAll(QuestionsAccessibility.values());
+        accessibilityChoiceBoxChoiceBox.getItems().addAll(AssessmentAccessibility.values());
         accessibilityChoiceBoxChoiceBox.setValue(defaultAccessibility);
-        UIHelpers.nodeVisibility(timeLimitAndPasswordContainer, isPrivateSelected);
-        UIHelpers.nodeVisibility(passwordContainer, isPrivateSelected);
+        Helpers.nodeVisibility(timeLimitAndPasswordContainer, isPrivateSelected);
+        Helpers.nodeVisibility(passwordContainer, isPrivateSelected);
         accessibilityChoiceBoxChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue == QuestionsAccessibility.PRIVATE){
-                UIHelpers.nodeVisibility(timeLimitAndPasswordContainer,true);
-                UIHelpers.nodeVisibility(passwordContainer,true);
+            if (newValue == AssessmentAccessibility.PRIVATE){
+                Helpers.nodeVisibility(timeLimitAndPasswordContainer,true);
+                Helpers.nodeVisibility(passwordContainer,true);
                 isPrivateSelected = true;
             }else{
                 if (!isExamSelected){
-                    UIHelpers.nodeVisibility(timeLimitAndPasswordContainer, false);
+                    Helpers.nodeVisibility(timeLimitAndPasswordContainer, false);
                 }
-                UIHelpers.nodeVisibility(passwordContainer, false);
+                Helpers.nodeVisibility(passwordContainer, false);
                 isPrivateSelected = false;
             }
         });
 
-        questionsTypeChoiceBox.getItems().addAll(QuestionsType.values());
+        questionsTypeChoiceBox.getItems().addAll(AssessmentType.values());
         questionsTypeChoiceBox.setValue(defaultType);
-        UIHelpers.nodeVisibility(timeLimitAndPasswordContainer, isExamSelected);
-        UIHelpers.nodeVisibility(timeLimitContainer, isExamSelected);
+        Helpers.nodeVisibility(timeLimitAndPasswordContainer, isExamSelected);
+        Helpers.nodeVisibility(timeLimitContainer, isExamSelected);
         questionsTypeChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            if ( newValue == QuestionsType.EXAM){
-                UIHelpers.nodeVisibility(timeLimitAndPasswordContainer, true);
-                UIHelpers.nodeVisibility(timeLimitContainer, true);
+            if ( newValue == AssessmentType.EXAM){
+                Helpers.nodeVisibility(timeLimitAndPasswordContainer, true);
+                Helpers.nodeVisibility(timeLimitContainer, true);
                 isExamSelected = true;
             }else{
                 if (!isPrivateSelected){
-                    UIHelpers.nodeVisibility(timeLimitAndPasswordContainer, false);
+                    Helpers.nodeVisibility(timeLimitAndPasswordContainer, false);
                 }
-                UIHelpers.nodeVisibility(timeLimitContainer, false);
+                Helpers.nodeVisibility(timeLimitContainer, false);
                 isExamSelected = false;
             }
         });
@@ -114,7 +116,7 @@ public class CreateQuestionsController implements Initializable {
         TextFieldUtils.makeNumeric(timeLimitTextField);
 
         //the errorBox is inVisible by default
-        UIHelpers.nodeVisibility(errorBox, false);
+        Helpers.nodeVisibility(errorBox, false);
 
         //loading icons to buttons
         try{
@@ -141,9 +143,9 @@ public class CreateQuestionsController implements Initializable {
         try{
             String title = quizTitleTextField.getText();
             String subjectName = subjectTextField.getText();
-            QuestionsType type = questionsTypeChoiceBox.getValue();
-            QuestionsAccessibility accessibility = accessibilityChoiceBoxChoiceBox.getValue();
-            QuestionsDifficulty difficulty = difficultyChoiceBox.getValue();
+            AssessmentType type = questionsTypeChoiceBox.getValue();
+            AssessmentAccessibility accessibility = accessibilityChoiceBoxChoiceBox.getValue();
+            AssessmentDifficulty difficulty = difficultyChoiceBox.getValue();
             String timeLimit = timeLimitTextField.getText();
             String password = passwordTextField.getText();
 
@@ -157,11 +159,23 @@ public class CreateQuestionsController implements Initializable {
                     timeLimitTextField.getText(),
                     passwordTextField.getText()
             );
+            AssessmentResponse response = ApiService.createAssessment(
+                    new AssessmentRequest(quizTitleTextField.getText(),
+                            subjectTextField.getText(),
+                            new Accessibility(accessibilityChoiceBoxChoiceBox.getValue(), passwordTextField.getText().isBlank() ? null : passwordTextField.getText()),
+                            difficultyChoiceBox.getValue(),
+                            new Type(questionsTypeChoiceBox.getValue(), 0),
+                            validQuestions,
+                            ""
+                    )
+            );
             controller.addAssessmentCard(TeacherAssessmentService.getInstance().getAllAssessments().getLast());
             reNewPage();
         }
         catch(InvalidAssessmentException e){
             showError(e.getMessage());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

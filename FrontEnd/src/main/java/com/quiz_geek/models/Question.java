@@ -10,6 +10,7 @@ public class Question {
     private List<String> options;
     private String correctAnswer;
 
+    public Question(){}
     public Question (String questionText, List<String> options, String correctAnswer){
         this.questionText = questionText;
         this.options = options;

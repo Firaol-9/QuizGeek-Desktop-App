@@ -5,11 +5,11 @@ import java.util.List;
 
 public class PracticeQuestion extends Assessment{
 
-    public PracticeQuestion(String assessmentTitle, String subject, List<Question> questionsList, QuestionsDifficulty difficulty, QuestionsAccessibility accessibility){
+    public PracticeQuestion(String assessmentTitle, String subject, List<Question> questionsList, AssessmentDifficulty difficulty, AssessmentAccessibility accessibility){
         super(assessmentTitle, subject, questionsList, difficulty, accessibility);
     }
 
-    public PracticeQuestion(String assessmentTitle, String subject, List<Question> questionsList, QuestionsDifficulty difficulty, QuestionsAccessibility accessibility, String password){
+    public PracticeQuestion(String assessmentTitle, String subject, List<Question> questionsList, AssessmentDifficulty difficulty, AssessmentAccessibility accessibility, String password){
         super(assessmentTitle, subject, questionsList, difficulty, accessibility, password);
     }
 

@@ -1,7 +1,6 @@
 package com.quiz_geek.controllers.common;
 
 import com.quiz_geek.exceptions.EmailAlreadyExistsException;
-import com.quiz_geek.exceptions.IncorrectPasswordOrEmailException;
 import com.quiz_geek.exceptions.InvalidInputException;
 import com.quiz_geek.exceptions.PasswordMismatchException;
 import com.quiz_geek.mappers.UserMapper;
@@ -10,7 +9,7 @@ import com.quiz_geek.payloads.UserDTO;
 import com.quiz_geek.services.core.ApiService;
 import com.quiz_geek.services.core.UserService;
 import com.quiz_geek.utils.GoogleAuthHelper;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,9 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -55,9 +52,9 @@ public class SignUpPageController implements Initializable{
         choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
         });
 
-        UIHelpers.nodeVisibility(emailErrorVbox, false);
-        UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
-        UIHelpers.nodeVisibility(errorBox, false);
+        Helpers.nodeVisibility(emailErrorVbox, false);
+        Helpers.nodeVisibility(passwordMismatchErrorVbox, false);
+        Helpers.nodeVisibility(errorBox, false);
     }
 
     @FXML
@@ -75,9 +72,9 @@ public class SignUpPageController implements Initializable{
     @FXML
     void linkToMainPage(ActionEvent event) throws IOException{
 
-        UIHelpers.nodeVisibility(emailErrorVbox, false);
-        UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
-        UIHelpers.nodeVisibility(errorBox, false);
+        Helpers.nodeVisibility(emailErrorVbox, false);
+        Helpers.nodeVisibility(passwordMismatchErrorVbox, false);
+        Helpers.nodeVisibility(errorBox, false);
 
         String fullName = fullNameTextField.getText();
         String email = emailTextField.getText();
@@ -114,7 +111,7 @@ public class SignUpPageController implements Initializable{
                 stage.show();
             }
             catch (IOException error){
-                UIHelpers.nodeVisibility(errorBox, true);
+                Helpers.nodeVisibility(errorBox, true);
                 showError(errorBox, "Failed to load main page.");
             }
 
@@ -123,14 +120,14 @@ public class SignUpPageController implements Initializable{
         task.setOnFailed(e -> {
             Throwable ex = task.getException();
             if (ex instanceof InvalidInputException) {
-                UIHelpers.nodeVisibility(errorBox, true);
+                Helpers.nodeVisibility(errorBox, true);
                 showError(errorBox, ex.getMessage());
             } else if (ex instanceof EmailAlreadyExistsException) {
                 showError(emailErrorVbox, ex.getMessage());
             } else if (ex instanceof PasswordMismatchException){
                 showError(passwordMismatchErrorVbox, ex.getMessage());
             }else {
-                UIHelpers.nodeVisibility(errorBox, true);
+                Helpers.nodeVisibility(errorBox, true);
                 showError(errorBox, "Something went wrong: " + ex.getMessage());
             }
         });
@@ -140,9 +137,9 @@ public class SignUpPageController implements Initializable{
 
     @FXML
     public void signupWithGoogle(ActionEvent event) {
-        UIHelpers.nodeVisibility(emailErrorVbox, false);
-        UIHelpers.nodeVisibility(passwordMismatchErrorVbox, false);
-        UIHelpers.nodeVisibility(errorBox, false);
+        Helpers.nodeVisibility(emailErrorVbox, false);
+        Helpers.nodeVisibility(passwordMismatchErrorVbox, false);
+        Helpers.nodeVisibility(errorBox, false);
 
         // Use CompletableFuture to handle async Google authentication
         GoogleAuthHelper.simulateGoogleLoginAsync()
@@ -180,7 +177,7 @@ public class SignUpPageController implements Initializable{
                         stage.setMaximized(true);
                         stage.show();
                     } catch (IOException error) {
-                        UIHelpers.nodeVisibility(errorBox, true);
+                        Helpers.nodeVisibility(errorBox, true);
                         showError(errorBox, "Failed to load main page.");
                     }
                 });
@@ -188,7 +185,7 @@ public class SignUpPageController implements Initializable{
             .exceptionally(throwable -> {
                 // Handle errors on FX thread
                 javafx.application.Platform.runLater(() -> {
-                    UIHelpers.nodeVisibility(errorBox, true);
+                    Helpers.nodeVisibility(errorBox, true);
                     showError(errorBox, "Google signup failed: " + throwable.getMessage());
                 });
                 return null;
@@ -198,7 +195,7 @@ public class SignUpPageController implements Initializable{
     private void showError(VBox vbox, String error){
         vbox.getChildren().clear();
         vbox.getChildren().clear();
-        UIHelpers.nodeVisibility(vbox, true);
+        Helpers.nodeVisibility(vbox, true);
         Label errorLabel = new Label(error);
         errorLabel.getStyleClass().addAll("label-errorRed", "label-verySmall");
         vbox.getChildren().add(errorLabel);

@@ -1,4 +1,6 @@
-package com.quiz_geek.payloads;
+package com.quiz_geek.payloads.response;
+
+import com.quiz_geek.payloads.UserDTO;
 
 public class LoginResponseDTO {
     private String token;

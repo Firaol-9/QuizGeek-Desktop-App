@@ -1,10 +1,10 @@
 package com.quiz_geek.controllers.student;
 
 import com.quiz_geek.models.Exam;
-import com.quiz_geek.models.QuestionsAccessibility;
+import com.quiz_geek.models.AssessmentAccessibility;
 import com.quiz_geek.utils.Constants;
 import com.quiz_geek.utils.SvgLoader;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 import com.quiz_geek.models.Assessment;
 import com.quiz_geek.services.student.StudentAssessmentService;
 import javafx.fxml.FXML;
@@ -87,7 +87,7 @@ public class HomeController implements Initializable {
         Button btn = new Button("Start");
 
         boolean isAssessmentExam = assessment instanceof Exam;
-        UIHelpers.nodeVisibility(timeLimit, isAssessmentExam);
+        Helpers.nodeVisibility(timeLimit, isAssessmentExam);
 
         card.setSpacing(10);
         card.setPadding(new Insets(cardPadding, cardPadding, cardPadding,cardPadding));
@@ -148,7 +148,7 @@ public class HomeController implements Initializable {
     }
 
     private void onCardClicked(Assessment assessment){
-        if ( assessment.getAccessibility() == QuestionsAccessibility.PUBLIC)
+        if ( assessment.getAccessibility() == AssessmentAccessibility.PUBLIC)
             mainLayoutController.showTakeAssessment(assessment);
         else
             handleAssessmentClick(assessment);

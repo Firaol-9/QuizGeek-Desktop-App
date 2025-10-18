@@ -7,7 +7,7 @@ import com.quiz_geek.models.Exam;
 import com.quiz_geek.services.student.StudentAssessmentService;
 import com.quiz_geek.utils.Constants;
 import com.quiz_geek.utils.SvgLoader;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -62,11 +62,11 @@ public class AssessmentResultController {
 
         boolean isQuestionCorrect = feedback.isCorrect();
         if (isQuestionCorrect){
-            UIHelpers.nodeVisibility(studentAnswerLabel, false);
+            Helpers.nodeVisibility(studentAnswerLabel, false);
             feedBackContainer.getStyleClass().addAll("section-card", "section-card-feedback-green");
         }
         else{
-            UIHelpers.nodeVisibility(studentAnswerLabel, true);
+            Helpers.nodeVisibility(studentAnswerLabel, true);
             feedBackContainer.getStyleClass().addAll("section-card", "section-card-feedback-red");
         }
         try{
@@ -99,9 +99,9 @@ public class AssessmentResultController {
         else { progressBar.getStyleClass().add("low-score"); }
 
         if (isExam){
-            UIHelpers.nodeVisibility(labelAndErrorsContainer, false);
-            UIHelpers.nodeVisibility(progressBar, false);
-            UIHelpers.nodeVisibility(percentLabel, false);
+            Helpers.nodeVisibility(labelAndErrorsContainer, false);
+            Helpers.nodeVisibility(progressBar, false);
+            Helpers.nodeVisibility(percentLabel, false);
         }
 
         if (!isExam) {

@@ -5,7 +5,7 @@ import com.quiz_geek.controllers.common.SessionManager;
 import com.quiz_geek.models.Assessment;
 import com.quiz_geek.models.EvaluationResult;
 import com.quiz_geek.services.core.UserService;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -148,12 +148,12 @@ public class MainLayoutControllerForStudents implements Initializable {
     }
 
     public void makeMainLayoutVisible(){
-        UIHelpers.nodeVisibility(stackPane, false);
-        UIHelpers.nodeVisibility(borderPane, true);
+        Helpers.nodeVisibility(stackPane, false);
+        Helpers.nodeVisibility(borderPane, true);
     }
 
     public void makeAssessmentAndResultContainerVisible(){
-        UIHelpers.nodeVisibility(stackPane, true);
-        UIHelpers.nodeVisibility(borderPane, false);
+        Helpers.nodeVisibility(stackPane, true);
+        Helpers.nodeVisibility(borderPane, false);
     }
 }

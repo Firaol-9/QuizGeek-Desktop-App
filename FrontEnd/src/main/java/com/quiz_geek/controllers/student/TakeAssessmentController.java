@@ -6,7 +6,7 @@ import com.quiz_geek.services.student.StudentAssessmentService;
 import com.quiz_geek.utils.Constants;
 import com.quiz_geek.utils.ExamTimer;
 import com.quiz_geek.utils.SvgLoader;
-import com.quiz_geek.utils.UIHelpers;
+import com.quiz_geek.utils.Helpers;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -68,12 +68,12 @@ public class TakeAssessmentController {
         mainQuestionContainer.getChildren().add(questionsContainer.get(index));
 
         if (index == questionsContainer.size() - 1){
-            UIHelpers.nodeVisibility(nextButton, false);
-            UIHelpers.nodeVisibility(finishButton, true);
+            Helpers.nodeVisibility(nextButton, false);
+            Helpers.nodeVisibility(finishButton, true);
         }
         else{
-            UIHelpers.nodeVisibility(nextButton, true);
-            UIHelpers.nodeVisibility(finishButton, false);
+            Helpers.nodeVisibility(nextButton, true);
+            Helpers.nodeVisibility(finishButton, false);
         }
     }
 
@@ -118,12 +118,12 @@ public class TakeAssessmentController {
             e.printStackTrace();
         }
 
-        if ( !isExam) UIHelpers.nodeVisibility(timerLabel, false);
+        if ( !isExam) Helpers.nodeVisibility(timerLabel, false);
         else{
             Exam exam = (Exam) assessment;
             timer.setTimerLabel(timerLabel);
             timer.setTime(exam.getTimeLimitInMinutes());
-            UIHelpers.nodeVisibility(timerLabel, true);
+            Helpers.nodeVisibility(timerLabel, true);
         }
 
         titleContainer.getChildren().add(title);
